@@ -1,0 +1,2626 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SENSEI — Книга Знань для Куратора | Projector Institute</title>
+<style>
+:root{
+  --accent:#0076FF;
+  --ink:#1a1a1a;
+  --paper:#faf6ee;
+  --paper-2:#f4ede0;
+  --line:#e6ddc9;
+  --muted:#6b6559;
+  --serif:'Iowan Old Style','Palatino Linotype',Palatino,Georgia,'Times New Roman',serif;
+  --sans:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--serif);
+  font-size:19px;
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+.wrap{max-width:700px;margin:0 auto;padding:0 28px}
+
+/* ---------- top nav shared across pages ---------- */
+.topnav{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:22px 28px;font-family:var(--sans);font-size:13px;
+  letter-spacing:.04em;text-transform:uppercase;color:var(--muted);
+  border-bottom:1px solid var(--line);
+}
+.topnav .brand{font-family:var(--serif);font-size:15px;letter-spacing:.02em;text-transform:none;color:var(--ink);font-weight:600}
+.topnav .brand:hover{text-decoration:none;color:var(--accent)}
+.topnav .navlinks a{color:var(--muted);margin-left:18px}
+.topnav .navlinks a:hover{color:var(--accent)}
+
+.chapter-nav{
+  display:flex;align-items:center;justify-content:space-between;font-family:var(--sans);
+  font-size:13px;color:var(--muted);padding:20px 28px 0;max-width:700px;margin:0 auto;
+}
+.chapter-nav .brand-link{display:flex;align-items:center;gap:10px;color:var(--ink)}
+.chapter-nav .brand-link:hover{color:var(--accent);text-decoration:none}
+.chapter-nav .brand-logo{height:18px;display:block}
+.chapter-nav a{color:var(--muted)}
+.chapter-nav a:hover{color:var(--accent)}
+
+/* ---------- cover / home ---------- */
+.cover{
+  padding:0;text-align:left;
+  background:var(--paper);
+  border-bottom:1px solid var(--line);
+  height:100vh;
+  overflow:hidden;
+}
+.cover-grid{
+  display:flex;align-items:stretch;gap:0;
+  height:100%;margin:0;padding:0;
+}
+.cover-left{
+  flex:0 0 33.333%;
+  background:var(--accent);
+  color:#fff;
+  padding:56px 28px;
+  display:flex;flex-direction:column;justify-content:center;
+  height:100%;
+}
+.cover-right{
+  flex:1;min-width:0;height:100%;overflow-y:auto;
+  padding:56px 56px 90px;
+}
+.cover-logo{
+  height:30px;margin-bottom:40px;display:block;
+  filter:brightness(0) invert(1);
+}
+.cover .kicker{
+  font-family:var(--sans);font-size:12px;letter-spacing:.14em;text-transform:uppercase;
+  color:rgba(255,255,255,.75);font-weight:600;margin-bottom:14px;
+}
+.cover h1{
+  font-size:clamp(48px, 8.5vw, 88px);line-height:0.94;margin:0 0 24px;font-weight:700;
+  letter-spacing:-0.02em;color:#fff;word-break:break-word;
+}
+.cover .by{font-family:var(--sans);font-size:13px;color:rgba(255,255,255,.7);margin-bottom:26px}
+.cover .tagline{
+  margin:0 0 30px;font-size:20px;color:#fff;font-weight:500;line-height:1.4;
+}
+.cover .desc{
+  margin:0 0 30px;font-size:17px;color:rgba(255,255,255,.85);line-height:1.55;max-width:400px;
+}
+.cover .cta{
+  display:inline-block;font-family:var(--sans);font-size:14px;font-weight:600;
+  letter-spacing:.02em;background:#fff;color:var(--accent);padding:13px 26px;
+  border-radius:3px;align-self:flex-start;
+}
+.cover .cta:hover{background:#eef5ff;text-decoration:none}
+
+.toc{padding:0}
+.toc-section{margin-top:0;margin-bottom:40px}
+.toc-section:first-child{margin-top:0}
+.toc-section h2{
+  font-family:var(--sans);font-size:12px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--accent);font-weight:700;margin:0 0 4px;
+}
+.toc-section .desc{font-family:var(--sans);font-size:14px;color:var(--muted);margin:0 0 16px;font-style:italic}
+.toc-list{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.toc-list li{border-bottom:1px solid var(--line)}
+.toc-list a{
+  display:flex;justify-content:space-between;align-items:baseline;gap:16px;
+  padding:14px 2px;color:var(--ink);font-size:18px;
+}
+.toc-list a:hover{color:var(--accent);text-decoration:none}
+.toc-list a .num{font-family:var(--sans);font-size:13px;color:var(--muted);min-width:18px}
+.toc-list a .title{flex:1}
+.toc-list a .arrow{font-family:var(--sans);color:var(--muted);opacity:0;transition:opacity .15s}
+.toc-list a:hover .arrow{opacity:1}
+
+.closing{padding:40px 0 10px;border-top:1px solid var(--line);text-align:left;font-family:var(--sans);font-size:14px;color:var(--muted);margin-top:10px}
+.closing p{max-width:480px;margin:0}
+
+@media (max-width:820px){
+  .cover{height:auto;overflow:visible}
+  .cover-grid{flex-direction:column}
+  .cover-left{flex:none;height:auto;padding:44px 24px}
+  .cover-right{height:auto;overflow:visible;padding:36px 24px 60px}
+}
+
+/* ---------- chapter page ---------- */
+
+.chapter-head{padding:50px 28px 10px;text-align:left}
+.chapter-eyebrow{
+  font-family:var(--sans);font-size:12px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--accent);font-weight:700;margin-bottom:14px;
+}
+.chapter-head h1{font-size:42px;line-height:1.12;margin:0 0 14px;font-weight:600;letter-spacing:-0.01em;color:var(--ink)}
+.chapter-head .subtitle{font-size:20px;color:var(--muted);font-style:italic;margin:0 0 10px}
+
+.chapter-body{padding:20px 28px 10px}
+.chapter-body h2{font-size:32px;margin:50px 0 18px;font-weight:700;letter-spacing:-.01em}
+.chapter-body h3{font-size:24px;margin:36px 0 14px;font-weight:600;color:#2b2b2b}
+.chapter-body p{margin:0 0 20px}
+.chapter-body ul, .chapter-body ol{margin:0 0 20px;padding-left:26px}
+.chapter-body li{margin-bottom:8px}
+.chapter-body strong{font-weight:600;color:#000}
+.chapter-body blockquote{
+  margin:28px 0;padding:4px 0 4px 22px;border-left:3px solid var(--accent);
+  font-style:italic;color:#3a3630;
+}
+.chapter-body .callout{
+  background:var(--paper-2);border:1px solid var(--line);border-radius:6px;
+  padding:20px 24px;margin:26px 0;font-size:18px;
+}
+.chapter-body .callout p:last-child{margin-bottom:0}
+.chapter-body .callout .label{font-family:var(--sans);font-weight:700;font-size:12px;
+  letter-spacing:.08em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:8px}
+.chapter-body .two-col{display:flex;gap:32px;margin:26px 0}
+.chapter-body .two-col > div{flex:1;min-width:0}
+.chapter-body .two-col h4{font-family:var(--sans);font-size:13px;letter-spacing:.06em;
+  text-transform:uppercase;color:var(--accent);margin:0 0 10px}
+.chapter-body table{width:100%;border-collapse:collapse;margin:26px 0;font-size:16px}
+.chapter-body th,.chapter-body td{border:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top}
+.chapter-body th{background:var(--paper-2);font-family:var(--sans);font-size:12px;text-transform:uppercase;letter-spacing:.04em}
+.chapter-body .checklist{list-style:none;padding-left:0}
+.chapter-body .checklist li{padding-left:30px;position:relative}
+.chapter-body .checklist li::before{
+  content:"";position:absolute;left:0;top:5px;width:16px;height:16px;
+  border:1.5px solid var(--muted);border-radius:3px;
+}
+.chapter-body .note{
+  font-family:var(--sans);font-size:15px;color:var(--muted);
+  border:1px dashed var(--line);border-radius:6px;padding:14px 18px;margin:26px 0;
+}
+.chapter-body hr{border:none;border-top:1px solid var(--line);margin:40px 0}
+.video-embed{position:relative;padding-bottom:56.25%;height:0;overflow:hidden;
+  border-radius:8px;margin:18px 0 30px;background:#000}
+.video-embed iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0}
+.video-todo{
+  color:#b3261e;font-weight:600;font-family:var(--sans);font-size:14px;
+  background:#fdecea;border:1px dashed #f2b8b5;border-radius:6px;
+  padding:10px 14px;margin:12px 0 24px;display:inline-block;
+}
+.video-link{
+  display:flex;align-items:center;gap:12px;font-family:var(--sans);font-size:15px;
+  font-weight:600;color:var(--accent);background:var(--paper-2);border:1px solid var(--line);
+  border-radius:8px;padding:14px 20px;margin:18px 0 30px;width:fit-content;
+}
+.video-link:hover{background:#eef5ff;text-decoration:none}
+.video-link .play{
+  display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;
+  border-radius:50%;background:var(--accent);color:#fff;font-size:12px;flex:none;
+}
+.tag{display:inline-block;font-family:var(--sans);font-size:11px;letter-spacing:.06em;
+  text-transform:uppercase;background:var(--paper-2);color:var(--muted);
+  border:1px solid var(--line);border-radius:20px;padding:3px 11px;margin:2px 6px 2px 0}
+.tag.required{color:#1a7a3c;border-color:#bfe3cc;background:#eaf7ef}
+.tag.recommended{color:#0060d1;border-color:#c7dcf9;background:#eef5ff}
+.tag.when{color:#6b6559;border-color:#e6ddc9;background:#f4ede0;text-transform:none;font-weight:500}
+
+.next-chapter{
+  display:block;margin:60px 28px 0;padding:34px 32px;background:var(--paper-2);
+  border-radius:8px;text-align:center;max-width:644px;margin-left:auto;margin-right:auto;
+}
+.next-chapter .lbl{font-family:var(--sans);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.next-chapter .ttl{font-size:26px;margin-top:8px;color:var(--ink)}
+.next-chapter:hover{text-decoration:none}
+.next-chapter:hover .ttl{color:var(--accent)}
+
+.author-box{
+  display:flex;gap:18px;align-items:flex-start;max-width:700px;margin:70px auto 0;
+  padding:30px 28px;border-top:1px solid var(--line);font-family:var(--sans);
+}
+.author-box .avatar{
+  width:52px;height:52px;border-radius:50%;background:var(--accent);flex:none;
+  display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:18px;
+}
+.author-box .name{font-family:var(--serif);font-size:17px;font-weight:600;margin-bottom:4px}
+.author-box .bio{font-size:14px;color:var(--muted);line-height:1.55}
+.author-box .bio a{color:var(--muted);border-bottom:1px dotted var(--muted)}
+
+.colophon{max-width:700px;margin:0 auto;padding:30px 28px 70px;font-family:var(--sans);
+  font-size:13px;color:var(--muted);text-align:center}
+
+@media (max-width:640px){
+  .cover h1{font-size:38px}
+  .cover .tagline{font-size:18px}
+  .chapter-head h1{font-size:32px}
+  .chapter-body{font-size:17px}
+  .chapter-body .two-col{flex-direction:column;gap:8px}
+  body{font-size:17px}
+}
+
+
+.hub-list{list-style:none;margin:32px 0 0;padding:0;border-top:1px solid var(--line)}
+.hub-list li{border-bottom:1px solid var(--line)}
+.hub-list a{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:16px 2px;color:var(--ink);font-size:19px}
+.hub-list a:hover{color:var(--accent);text-decoration:none}
+.hub-list a .num{font-family:var(--sans);font-size:13px;color:var(--muted);min-width:34px}
+.hub-list a .arrow{font-family:var(--sans);color:var(--muted);opacity:0;transition:opacity .15s}
+.hub-list a:hover .arrow{opacity:1}
+details.card{border:1px solid var(--line);border-radius:8px;margin:14px 0;background:var(--paper-2);overflow:hidden}
+details.card summary{
+  list-style:none;cursor:pointer;padding:16px 20px;font-family:var(--sans);
+  display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:16px;
+  flex-wrap:wrap;
+}
+details.card summary::-webkit-details-marker{display:none}
+details.card summary .sname{font-family:var(--serif);font-size:19px;color:var(--ink);font-weight:600}
+details.card summary .sopen{font-family:var(--sans);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);border:1px solid var(--accent);border-radius:20px;padding:4px 12px;white-space:nowrap}
+details.card[open] summary .sopen{background:var(--accent);color:#fff}
+details.card .card-body{padding:0 20px 20px;font-size:17px}
+details.card .card-tags{margin-bottom:6px}
+details.card summary .stags{display:flex;align-items:center;gap:8px;flex:none;flex-wrap:wrap}
+details.card summary .schevron{
+  font-family:var(--sans);color:var(--muted);font-size:18px;flex:none;transition:transform .15s;
+  display:inline-block;
+}
+details.card[open] summary .schevron{transform:rotate(90deg);color:var(--accent)}
+details.card .card-body h4{font-family:var(--serif);font-size:18px;margin:20px 0 8px;color:var(--ink)}
+details.card .card-body ul{margin:0 0 14px 20px}
+details.card .card-body p{margin:0 0 14px}
+details.card .card-body details{
+  margin:14px 0;padding:0;background:none;border:none;
+}
+details.card .card-body details > summary{
+  list-style:none;cursor:pointer;padding:0;display:flex;justify-content:flex-start;align-items:baseline;gap:8px;
+  font-family:var(--serif);font-size:17px;font-weight:600;color:var(--ink);
+}
+details.card .card-body details > summary::-webkit-details-marker{display:none}
+details.card .card-body details > summary::before{content:"▸";color:var(--muted);font-size:13px;transition:transform .15s}
+details.card .card-body details[open] > summary::before{content:"▾"}
+details.card .card-body details > summary::marker{display:none}
+details.card .card-body details .toggle-inner{padding:10px 0 0 20px}
+details.card .card-body details ul{margin:8px 0 0 20px}
+details.card .card-body details .toggle-inner details{margin:8px 0}
+details.card .card-body details .toggle-inner details > summary{font-size:15px;font-weight:600;color:var(--ink)}
+
+/* ---------- toolbox-style card grid (interactives, formats, etc.) ---------- */
+.tool-grid{
+  display:grid;grid-template-columns:repeat(auto-fill, minmax(240px, 1fr));
+  gap:16px;margin:28px 0;
+}
+.tool-card{
+  border:1px solid var(--line);border-radius:10px;background:var(--paper-2);
+  overflow:hidden;transition:border-color .15s, box-shadow .15s;
+  cursor:pointer;padding:18px 18px 16px;display:flex;flex-direction:column;gap:8px;
+}
+.tool-card:hover, .tool-card:focus-visible{border-color:var(--accent);box-shadow:0 2px 10px rgba(0,0,0,.05);outline:none}
+.tool-tags{display:flex;flex-wrap:wrap;gap:6px}
+.tool-tags .tag{margin:0}
+.tag.level{color:#0060d1;border-color:#c7dcf9;background:#eef5ff;text-transform:none;font-weight:600}
+.tag.part{color:#6b6559;border-color:#e6ddc9;background:var(--paper);text-transform:none;font-weight:500}
+.tool-name{font-family:var(--serif);font-size:19px;font-weight:700;color:var(--ink);line-height:1.25;margin-top:2px}
+.tool-preview{font-family:var(--sans);font-size:14px;color:var(--muted);line-height:1.5;margin:0}
+.tool-toggle{
+  font-family:var(--sans);font-size:12px;letter-spacing:.05em;text-transform:uppercase;
+  color:var(--accent);font-weight:700;margin-top:4px;display:flex;align-items:center;gap:4px;
+}
+@media (max-width:640px){
+  .tool-grid{grid-template-columns:1fr}
+}
+.wrap.wrap-wide{max-width:1040px}
+
+/* ---------- half-screen side panel for tool-card details ---------- */
+.side-panel-overlay{
+  position:fixed;inset:0;background:rgba(20,17,10,.4);z-index:1000;
+  opacity:0;pointer-events:none;transition:opacity .2s;
+}
+.side-panel-overlay.open{opacity:1;pointer-events:auto}
+.side-panel{
+  position:fixed;top:0;right:0;height:100vh;width:50%;max-width:900px;
+  background:var(--paper);box-shadow:-8px 0 30px rgba(0,0,0,.15);
+  transform:translateX(100%);transition:transform .25s ease;
+  overflow-y:auto;z-index:1001;padding:50px 48px 80px;
+}
+.side-panel-overlay.open .side-panel{transform:translateX(0)}
+.side-panel-close{
+  position:sticky;top:0;float:right;margin-top:-20px;margin-right:-18px;
+  background:var(--paper-2);border:1px solid var(--line);border-radius:50%;
+  width:36px;height:36px;font-size:18px;line-height:1;cursor:pointer;color:var(--muted);
+  display:flex;align-items:center;justify-content:center;
+}
+.side-panel-close:hover{color:var(--accent);border-color:var(--accent)}
+.side-panel .panel-eyebrow{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px;clear:both}
+.side-panel h2{font-family:var(--serif);font-size:32px;font-weight:700;margin:0 0 20px;color:var(--ink);letter-spacing:-.01em}
+.side-panel p{margin:0 0 14px;font-size:17px}
+.side-panel h4{font-family:var(--serif);font-size:19px;margin:24px 0 10px;color:var(--ink)}
+.side-panel ul,.side-panel ol{margin:0 0 14px 22px}
+.side-panel li{margin-bottom:6px}
+.side-panel .checklist{list-style:none;padding-left:0}
+.side-panel .checklist li{padding-left:28px;position:relative}
+.side-panel .checklist li::before{content:"";position:absolute;left:0;top:5px;width:15px;height:15px;border:1.5px solid var(--muted);border-radius:3px}
+.side-panel table{width:100%;border-collapse:collapse;margin:18px 0;font-size:15px}
+.side-panel th,.side-panel td{border:1px solid var(--line);padding:9px 10px;text-align:left;vertical-align:top}
+.side-panel th{background:var(--paper-2);font-family:var(--sans);font-size:11px;text-transform:uppercase}
+.side-panel .callout{background:var(--paper-2);border:1px solid var(--line);border-radius:6px;padding:16px 18px;margin:18px 0}
+.side-panel .callout .label{font-family:var(--sans);font-weight:700;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:8px}
+.side-panel .note{font-family:var(--sans);font-size:14px;color:var(--muted);border:1px dashed var(--line);border-radius:6px;padding:12px 16px;margin:16px 0}
+.side-panel .video-embed{margin:16px 0}
+.side-panel details{margin:14px 0;background:none;border:none}
+.side-panel details > summary{list-style:none;cursor:pointer;padding:0;display:flex;align-items:baseline;gap:8px;font-family:var(--serif);font-size:16px;font-weight:600;color:var(--ink)}
+.side-panel details > summary::-webkit-details-marker{display:none}
+.side-panel details > summary::before{content:"▸";color:var(--muted);font-size:13px}
+.side-panel details[open] > summary::before{content:"▾"}
+.side-panel details .toggle-inner{padding:10px 0 0 20px}
+@media (max-width:900px){
+  .side-panel{width:100%;max-width:none;padding:40px 24px 60px}
+}
+template{display:none}
+
+/* ---------- top-level toggle sections (e.g. course projects) ---------- */
+.chapter-body details.toggle-h2{
+  margin:46px 0 30px;border:none;
+}
+.chapter-body details.toggle-h2 > summary{
+  list-style:none;cursor:pointer;display:flex;align-items:center;gap:10px;
+  font-size:32px;font-weight:700;letter-spacing:-.01em;color:var(--ink);
+  font-family:var(--serif);padding-bottom:14px;border-bottom:2px solid var(--line);
+}
+.chapter-body details.toggle-h2 > summary::-webkit-details-marker{display:none}
+.chapter-body details.toggle-h2 > summary::before{
+  content:"▸";color:var(--accent);font-size:24px;transition:transform .15s;flex:none;
+}
+.chapter-body details.toggle-h2[open] > summary::before{transform:rotate(90deg)}
+.chapter-body details.toggle-h2 > summary:hover{color:var(--accent)}
+.chapter-body details.toggle-h2 h3:first-of-type{margin-top:36px}
+
+
+.toc-list{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.toc-list > li.toc-top{border-bottom:1px solid var(--line)}
+.toc-list a{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:14px 2px;color:var(--ink);font-size:18px}
+.toc-list a:hover{color:var(--accent);text-decoration:none}
+.toc-list a .num{font-family:var(--sans);font-size:13px;color:var(--muted);min-width:30px}
+.toc-list a .title{flex:1}
+.toc-list a .arrow{font-family:var(--sans);color:var(--muted);opacity:0;transition:opacity .15s}
+.toc-list a:hover .arrow{opacity:1}
+.toc-sub{list-style:none;margin:0 0 8px;padding:0 0 0 30px}
+.toc-sub li{border-bottom:1px dashed var(--line)}
+.toc-sub a{padding:11px 2px;font-size:16px;color:#4a453c}
+.toc-sub a .num{min-width:38px;font-size:12px}
+
+
+/* --- single-page app additions --- */
+.cover-right{position:relative}
+.pane{display:none}
+.pane.active{display:block}
+.back-link{
+  display:inline-block;background:none;border:none;font-family:var(--sans);
+  font-size:13px;color:var(--muted);cursor:pointer;padding:0;margin-bottom:10px;
+}
+.back-link:hover{color:var(--accent)}
+.chapter-pane .chapter-head{padding:0 0 10px}
+.chapter-pane .chapter-body{padding:0}
+.next-chapter{
+  display:block;width:100%;text-align:center;border:none;cursor:pointer;
+  margin:60px 0 0;padding:30px 28px;background:var(--paper-2);border-radius:8px;
+  font-family:inherit;
+}
+.next-chapter:hover .ttl{color:var(--accent)}
+.author-box{border-top:1px solid var(--line);margin:50px 0 0;padding:26px 0 10px;max-width:none}
+</style>
+</head>
+<body>
+
+<section class="cover">
+  <div class="cover-grid">
+    <div class="cover-left">
+      <img class="cover-logo" alt="Projector Institute" src="https://media.prjctr.com/cdn-cgi/image/width=256,quality=75,format=webp/https%3A%2F%2Fprjctr-images-prod.fra1.cdn.digitaloceanspaces.com%2Fpages%2Fteaching%2F3025efca5aca4461acc28d5edc9fbfdf3b9e8904360334953e8dbe6543567b0d.svg">
+      <h1>Книга Sensei</h1>
+      <p class="tagline">Ця книга — твій путівник на шляху до головної мети кожного куратора — успіх студента.</p>
+      <button class="cta" data-goto="01" style="border:none;cursor:pointer;font-family:inherit">Почати читати</button>
+    </div>
+    <div class="cover-right" id="pane-root">
+
+      <div class="pane active" id="pane-toc">
+        <div class="toc">
+          <ul class="toc-list">
+<li class="toc-top"><a href="#" data-goto="01"><span class="num">01</span><span class="title">Про екосистему Projector Institute та плюшки для кураторів</span><span class="arrow">→</span></a></li>
+<li class="toc-top"><a href="#" data-goto="02"><span class="num">02</span><span class="title">Вебінари</span><span class="arrow">→</span></a><ul class="toc-sub"><li><a href="#" data-goto="02-1"><span class="num">02-1</span><span class="title">Формати вебінарів</span><span class="arrow">→</span></a></li><li><a href="#" data-goto="02-2"><span class="num">02-2</span><span class="title">Інтерактиви</span><span class="arrow">→</span></a></li><li><a href="#" data-goto="02-3"><span class="num">02-3</span><span class="title">Шаблон презентацій</span><span class="arrow">→</span></a></li><li><a href="#" data-goto="02-4"><span class="num">02-4</span><span class="title">Шаблон партисипативного вебінару в Notion</span><span class="arrow">→</span></a></li><li><a href="#" data-goto="02-5"><span class="num">02-5</span><span class="title">Як працювати з гостьовими лекторами?</span><span class="arrow">→</span></a></li></ul></li>
+<li class="toc-top"><a href="#" data-goto="03"><span class="num">03</span><span class="title">Фідбеки та робота зі студентами</span><span class="arrow">→</span></a><ul class="toc-sub"><li><a href="#" data-goto="03-1"><span class="num">03-1</span><span class="title">Все про фідбеки</span><span class="arrow">→</span></a></li><li><a href="#" data-goto="03-2"><span class="num">03-2</span><span class="title">Як працювати з груповою роботою?</span><span class="arrow">→</span></a></li><li><a href="#" data-goto="03-3"><span class="num">03-3</span><span class="title">Як підтримувати активність на курсі?</span><span class="arrow">→</span></a></li><li><a href="#" data-goto="03-4"><span class="num">03-4</span><span class="title">Як організувати рефлексію?</span><span class="arrow">→</span></a></li><li><a href="#" data-goto="03-5"><span class="num">03-5</span><span class="title">Як працювати з курсовими проєктами (та замовниками)?</span><span class="arrow">→</span></a></li><li><a href="#" data-goto="03-6"><span class="num">03-6</span><span class="title">Кризова комунікація</span><span class="arrow">→</span></a></li></ul></li>
+<li class="toc-top"><a href="#" data-goto="04"><span class="num">04</span><span class="title">Сертифікати</span><span class="arrow">→</span></a></li>
+<li class="toc-top"><a href="#" data-goto="05"><span class="num">05</span><span class="title">Фінансово-юридичні питання</span><span class="arrow">→</span></a></li>
+<li class="toc-top"><a href="#" data-goto="06"><span class="num">06</span><span class="title">Відеолекції навчальної програми для кураторів</span><span class="arrow">→</span></a></li>
+
+          </ul>
+        </div>
+        <div class="closing">
+          <p>Якщо маєш ідеї, що варто додати чи уточнити, напиши про це своєму продюсеру.</p>
+        </div>
+      </div>
+
+      <div class="pane" id="pane-chapters">
+
+<article class="chapter-pane" id="page-01" hidden>
+  <button class="back-link" data-goto="toc">← Зміст книги</button>
+  <header class="chapter-head">
+    <div class="chapter-eyebrow">Розділ 1</div>
+    <h1>Про екосистему Projector Institute та плюшки для кураторів</h1>
+    <p class="subtitle">Бібліотека, менторство, кар'єрна платформа й знижки — все, що доступно тобі як куратору</p>
+  </header>
+  <div class="chapter-body">
+    
+<p>Привіт! Ми дуже щасливі, що ти є частиною Projector 💙 Розповімо коротко, що таке Projector Institute і які можливості тобі, як куратору, доступні.</p>
+
+<h2>Про Projector Institute</h2>
+<div class="callout">
+  <span class="label">Projector Creative &amp; Tech Online Institute</span>
+  <p><a href="https://prjctr.com/" target="_blank">prjctr.com</a> — онлайн-інститут, який створює вільну освіту: практичну, системну і кастомізовану під потреби студентів. У Projector можна здобути професію, прокачати навички або навіть змінити сферу діяльності на понад 200 коротких і довгих програмах.</p>
+  <p>Для наших кураторів та авторів програм діє <strong>знижка 25% на будь-які освітні продукти Projector Institute</strong>. За деталями звертайся до свого менеджера курсу.</p>
+</div>
+<div class="video-embed"><iframe src="https://player.vimeo.com/video/813543709?h=2e4368fdf9" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div>
+
+<h2>Про Projector Library</h2>
+<div class="callout">
+  <span class="label"><a href="https://prjctr.com/library" target="_blank">Projector Library</a></span>
+  <p>Онлайн-платформа, на якій наразі понад п'ятсот лекцій від профі з топових компаній.</p>
+  <p>У тебе є <strong>безкоштовний доступ</strong> до Projector Library — вхід за поштою; якщо не виходить зайти, звернись до свого менеджера курсу.</p>
+</div>
+<div class="video-embed"><iframe src="https://player.vimeo.com/video/813543464" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div>
+
+<h2>Про Mentorship Platform</h2>
+<div class="callout">
+  <span class="label"><a href="https://www.prjctrmentor.com/?utm_source=notion&utm_medium=notion-students&utm_campaign=mentorship&utm_term=karjera" target="_blank">Projector Mentorship Platform</a></span>
+  <p>Дає можливість за донат будь-якого розміру отримати консультацію від ментора-спеціаліста зі сфери — обговорити портфоліо чи дізнатись з перших вуст досвід роботи у компанії, що цікавить.</p>
+</div>
+<div class="video-embed"><iframe src="https://player.vimeo.com/video/813543923" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div>
+
+<h2>Про Lezo</h2>
+<div class="callout">
+  <span class="label"><a href="http://lezo.io/" target="_blank">Lezo</a></span>
+  <p>AI кар'єрна платформа, що допомагає знайти метч із роботодавцем за навичками та досвідом. Це внутрішній інструмент Проджа, який розширює можливості студентів для побудови кар'єри — сотні випускників уже знайшли через нього роботу.</p>
+  <p>Що робить Lezo для студента:</p>
+  <ul>
+    <li>метчить із найкрутішими вакансіями з пулу в 2000+ компаній;</li>
+    <li>допомагає згенерувати актуальне CV;</li>
+    <li>аналізує скіли й очікування щодо зарплати, підказує, що варто підтягнути;</li>
+    <li>надсилає профілі випускників напряму найкращим роботодавцям (+40% до шансів на метч);</li>
+    <li>створює нетворк-події для прямого контакту з рекрутерами.</li>
+  </ul>
+  <p class="note">Канал з можливостями, анонсами й вакансіями від Lezo: <a href="https://t.me/design_guild" target="_blank">для дизайну</a> · <a href="https://t.me/marketing_guild" target="_blank">для маркетингу і менеджменту</a></p>
+</div>
+
+<h2>Про Projector Store</h2>
+<div class="callout">
+  <span class="label"><a href="https://www.prjctr.store/" target="_blank">Projector Store</a></span>
+  <p>Склад вільних речей від Projector Institute — для тих, хто цінує справжність і волю. З промокодом <strong>CURATOR</strong> — знижка 10%. Частину прибутку з кожного товару команда передає на благодійні потреби — освіту, ЗСУ та культуру.</p>
+</div>
+
+<hr>
+<p>З освітньою любов'ю,<br>твій Продж 💙</p>
+
+  </div>
+  <button class="next-chapter" data-goto="02">
+    <div class="lbl">Далі</div>
+    <div class="ttl">Вебінари</div>
+  </button>
+  <div class="author-box">
+    <div class="avatar">PI</div>
+    <div>
+      <div class="name">Продюсерська команда Projector Institute</div>
+      <div class="bio">Ця книга зібрана з бази знань кураторів — понад 10-річного досвіду роботи зі студентами, курсами та вебінарами.</div>
+    </div>
+  </div>
+</article>
+
+<article class="chapter-pane" id="page-02" hidden>
+  <button class="back-link" data-goto="toc">← Зміст книги</button>
+  <header class="chapter-head">
+    <div class="chapter-eyebrow">Розділ 2</div>
+    <h1>Вебінари</h1>
+    <p class="subtitle">Все про те, як готуватись і як проводити заняття</p>
+  </header>
+  <div class="chapter-body">
+    
+<p>Вебінар — головний інструмент куратора: тут відбувається і теорія, і практика, і знайомство з групою. У цьому розділі — усе, що потрібно для підготовки та проведення заняття: каталог форматів вебінарів, банк інтерактивів для урізноманітнення програми, шаблони презентацій і партисипативного плану заняття, а також те, як працювати з гостьовими лекторами.</p>
+<ul class="hub-list"><li><a href="#" data-goto="02-1"><span class="num">02-1</span><span class="title">Формати вебінарів</span><span class="arrow">→</span></a></li>
+<li><a href="#" data-goto="02-2"><span class="num">02-2</span><span class="title">Інтерактиви</span><span class="arrow">→</span></a></li>
+<li><a href="#" data-goto="02-3"><span class="num">02-3</span><span class="title">Шаблон презентацій</span><span class="arrow">→</span></a></li>
+<li><a href="#" data-goto="02-4"><span class="num">02-4</span><span class="title">Шаблон партисипативного вебінару в Notion</span><span class="arrow">→</span></a></li>
+<li><a href="#" data-goto="02-5"><span class="num">02-5</span><span class="title">Як працювати з гостьовими лекторами?</span><span class="arrow">→</span></a></li>
+</ul>
+  </div>
+  <button class="next-chapter" data-goto="02-1">
+    <div class="lbl">Далі</div>
+    <div class="ttl">Формати вебінарів</div>
+  </button>
+  <div class="author-box">
+    <div class="avatar">PI</div>
+    <div>
+      <div class="name">Продюсерська команда Projector Institute</div>
+      <div class="bio">Ця книга зібрана з бази знань кураторів — понад 10-річного досвіду роботи зі студентами, курсами та вебінарами.</div>
+    </div>
+  </div>
+</article>
+
+<article class="chapter-pane" id="page-02-1" hidden>
+  <button class="back-link" data-goto="toc">← Зміст книги</button>
+  <header class="chapter-head">
+    <div class="chapter-eyebrow">Розділ 2.1 — Вебінари</div>
+    <h1>Формати вебінарів</h1>
+    <p class="subtitle">Каталог форматів занять — від знайомства до захисту курсових</p>
+  </header>
+  <div class="chapter-body">
+    
+<p>Тут ти знайдеш різні формати вебінарів — з позначкою, чи це обов'язковий формат для кожного курсу, чи рекомендований додатковий, а також з рекомендаціями щодо проведення. Натисни на картку, щоб розгорнути повний опис.</p>
+<div class="tool-grid"><div class="tool-card" data-panel="panel-1" tabindex="0" role="button">
+  <div class="tool-tags"></div>
+  <div class="tool-name">Overview будь-якого заняття</div>
+  <p class="tool-preview">Загальні рекомендації, які підходять для будь-якого формату вебінару — від початку заняття до завершення.</p>
+  <span class="tool-toggle">Детальніше <span class="schevron">›</span></span>
+</div>
+<template id="panel-1">
+  <div class="panel-eyebrow"></div>
+  <h2>Overview будь-якого заняття</h2>
+  
+<p>Загальні рекомендації, які підходять для будь-якого формату вебінару — від початку заняття до завершення.</p>
+<h4>Початок заняття</h4>
+<ul>
+  <li>Привітання.</li>
+  <li>Неформальна бесіда під час очікування або айсбрейкер (наприклад: цікавий факт про себе, «яка ти сьогодні пісня», згадати, за що вдячний сьогодні).</li>
+  <li>Не обов'язково чекати на всіх — можна завжди починати через 2–5 хвилин.</li>
+</ul>
+<h4>Загальні поради</h4>
+<table>
+<tr><th>DO's</th><th>DON'T's</th></tr>
+<tr><td>Вебінар має бути вузьким по темі — 1 вебінар, 1 тема.</td><td>Все, що можна прочитати чи подивитись, надсилай ДО вебінару або включай у відеолекцію.</td></tr>
+<tr><td>Перед вебінаром виписуй 8–10 ключових відкритих запитань, що перевіряють знання або залучають до бесіди.</td><td>Не роби фокус на перевірці знань, щоб це не перетворилось на тест — замість «що», питай «чому», «яким чином», «що буде якщо».</td></tr>
+<tr><td>Знання цінні лише коли відпрацьовані — дай студентам можливість щось зробити.</td><td>Відчуй різницю між «ось перелік того, що не варто робити» і «ось приклад — що з ним не так?».</td></tr>
+<tr><td>Наводь приклади з власного досвіду — студенти обожнюють практичні кейси.</td><td>Фідбечити домашку на вебінарі по черзі кожному — погана ідея, студенти швидко знудяться.</td></tr>
+<tr><td>Якщо тема складна — подумай про додаткові матеріали заздалегідь.</td><td>Не повторюй одну й ту саму активність на кожному вебінарі — студенти мають лишатись включеними.</td></tr>
+<tr><td>Готуйся до заняття: май план з активностями й розкладом.</td><td>Неможливо передбачити, наскільки активними будуть студенти — тож будь підготовленим, проте гнучким.</td></tr>
+</table>
+<h4>Проведення заняття</h4>
+<ul>
+  <li>Жарти до теми вітаються — емоційна складова посилює засвоєння матеріалу.</li>
+  <li>У студентів мають бути увімкнені камера й робочий мікрофон.</li>
+  <li>Можна «викликати до дошки» — звертатись до конкретного студента з питанням, залучаючи й пасивних/інтровертних.</li>
+  <li>Після кожного смислового блоку слайдів уточнюй, чи є питання.</li>
+  <li>Лекційна частина не повинна займати більше 15–20 хв.</li>
+</ul>
+<h4>Робота в групах</h4>
+<ul>
+  <li>Breakout Rooms у Zoom — потужний інструмент: розговорити кожного, дати попрактикуватись, посилити нетворкінг.</li>
+  <li>Відвідуй кімнати, дивись на роботу кілька хвилин, допомагай питаннями.</li>
+  <li>Після повернення в загальну кімнату студенти самі презентують групову роботу — і лише після цього куратор дає фідбек.</li>
+</ul>
+<h4>Кінець заняття</h4>
+<ul>
+  <li>Підведи підсумки — можна питаннями по темі заняття.</li>
+  <li>Анонсуй наступне заняття.</li>
+  <li>Зроби потрібні оголошення й нагадування (наприклад, про об'ємну домашку чи наближення передзахисту).</li>
+</ul>
+<p class="note">Підбірка ідей для інтерактивів — <a href="02-2-interaktyvy.html" data-goto="02-2">розділ 2.2</a> цієї книги. Зовнішні ресурси: <a href="https://www.sessionlab.com/" target="_blank">Session Lab</a>, <a href="https://hpi.de/fileadmin/user_upload/fachgebiete/d-school/documents/01_GDTW-Files/frog_collective_action_toolkit_part_1.pdf" target="_blank">Collective Action Toolkit</a>, <a href="https://www.atlassian.com/team-playbook" target="_blank">Atlassian Playbook</a>, <a href="https://toolbox.hyperisland.com/" target="_blank">Hyper Island Toolbox</a>.</p>
+
+</template>
+<div class="tool-card" data-panel="panel-2" tabindex="0" role="button">
+  <div class="tool-tags"><span class="tag required">обов'язковий</span></div>
+  <div class="tool-name">Вебінар-знайомство</div>
+  <p class="tool-preview">Вебінар-знайомство — дуже важлива зустріч, адже вона задає тон на весь курс. Тому варто ретельно підготуватись: продумати, про…</p>
+  <span class="tool-toggle">Детальніше <span class="schevron">›</span></span>
+</div>
+<template id="panel-2">
+  <div class="panel-eyebrow"><span class="tag required">обов'язковий</span></div>
+  <h2>Вебінар-знайомство</h2>
+  
+<p>Вебінар-знайомство — дуже важлива зустріч, адже вона задає тон на весь курс. Тому варто ретельно підготуватись: продумати, про що розповідатимеш і як взаємодіятимеш зі студентами.</p>
+<p>Зустріч включає <strong>Welcome</strong> та <strong>Організаційну</strong> частини (послідовність блоків можна міняти на власний розсуд).</p>
+
+<h4>Welcome частина</h4>
+<p>Ціль — познайомитись зі студентами:</p>
+<ul>
+  <li><strong>Розповісти про себе та свій досвід.</strong> Я рекомендую підготувати презентацію — кар'єрний шлях, проєкти, якими пишаєшся, захоплення.</li>
+  <li><strong>Дати можливість студентам розповісти про себе</strong> — з дрібкою креативності. Кілька способів, які використовували куратори:
+    <ul>
+      <li><em>Через цікаві факти</em> — маловідомий факт про себе, свій role model у сфері, або «як може називатись твоя автобіографія і чому».</li>
+      <li><em>Через емоджі</em> — згенерувати власний емоджі в <a href="https://emoji.supply/kitchen/" target="_blank">емоджі кітчен</a>, що розкриває факт про студента.</li>
+      <li><em>Через фото</em> — поділитись фото за останній місяць і розповісти, що на ньому й чому воно про тебе.</li>
+      <li><em>Через малюнок</em> — намалювати себе неіснуючою твариною і пояснити чому.</li>
+      <li><em>Через цілі</em> — поділитись цілями на курс (наприклад, у FigJam-дошці, щоб звірити прогрес на випускному).</li>
+    </ul>
+  </li>
+</ul>
+<p>Також класно використовувати Ice-breakers. Наприклад: обрати soul-персонажа зі всесвіту Марії Примаченко, щоб передати свій стан; яка ти сьогодні пісня (потім можна сформувати плейлист групи); квіз на смішну тему; швидке сканування настрою в групі за шкалою кізонька/качечка.</p>
+
+<details>
+  <summary>Більше айсбрейкерів</summary>
+  <div class="toggle-inner">
+    <p><a href="https://blog.slido.com/virtual-icebreakers/" target="_blank">blog.slido.com/virtual-icebreakers</a><br>
+    <a href="https://www.letsroam.com/explorer/icebreakers/" target="_blank">letsroam.com/explorer/icebreakers</a><br>
+    <a href="https://www.mural.co/blog/virtual-meeting-ice-breakers" target="_blank">mural.co/blog/virtual-meeting-ice-breakers</a><br>
+    <a href="https://www.scienceofpeople.com/virtual-icebreakers/" target="_blank">scienceofpeople.com/virtual-icebreakers</a></p>
+  </div>
+</details>
+
+<details>
+  <summary>Більше класних ідей для активностей на цій зустрічі</summary>
+  <div class="toggle-inner">
+    <ul>
+      <li>Додати на свою картку в FigJam 3–5 фото, що характеризують вас як особистість.</li>
+      <li>Пройти фан-тести і закріпити свій результат в картці FigJam-дошки, наприклад: тест «<a href="https://uquiz.com/Result/static/lite/aKbuvz/4166226/personality/4834696?&s=b3951a67-269f-45f4-ae0b-1e741749f345" target="_blank">Яка ти цукерочка Roshen</a>» від кураторки Каті Дідик, або тест від Adobe «<a href="https://mycreativetype.com/" target="_blank">Ваш тип креативності</a>».</li>
+      <li>Намалювати себе неіснуючою твариною і потім пояснити, чому саме така тварина.</li>
+      <li>Намалювати свій автопортрет в картці FigJam-дошки.</li>
+    </ul>
+  </div>
+</details>
+
+<h4>Організаційна частина</h4>
+<p><strong>1. Правила та рекомендації курсу.</strong> Чітко встановлені правила вирівнюють очікування та роблять комунікацію прозорішою. Я раджу озвучити цю інформацію вже на першому вебінарі.</p>
+
+<details>
+  <summary>Правила</summary>
+  <div class="toggle-inner">
+    <ul>
+      <li><strong>Спілкуємось на «ти»</strong> — у Projector плоска оргструктура, тож звертаємось на «ти», щоб бути ближчими.</li>
+      <li><strong>Камери</strong> — привчай студентів з першої ж зустрічі і не забувай нагадувати про це на початку кожної.
+        <details>
+          <summary><em>Як переконати студентів вмикати камери?</em></summary>
+          <div class="toggle-inner">
+            <ol>
+              <li>Пояснити, чому це так важливо — вебінари інтерактивні й вимагають активного залучення, а лише активне опрацювання інформації сприяє запам'ятовуванню.</li>
+              <li>Чесно сказати, що хочеться поспілкуватись з людьми, а не подивитись у власну презентацію.</li>
+              <li>Свій варіант — гумор допомагає в будь-якій незрозумілій ситуації.</li>
+            </ol>
+          </div>
+        </details>
+      </li>
+      <li><strong>Взаємоповага</strong> — навчання в Projector — це емоційно безпечне середовище без дискримінації, приниження чи зневажливого ставлення до куратора, менеджера чи інших студентів.</li>
+      <li><strong>Відвідуваність</strong> — записи занять доступні, але основна цінність — саме в живому спілкуванні з куратором і групою.</li>
+      <li><strong>Проактивність</strong> — курс не набір лекцій; навчання відбувається саме в дискусіях, практиці й роботі в групах.</li>
+      <li><strong>Ітеративність домашок</strong> — мета курсу — максимальний прогрес кожного студента, тому роботи повертаються на доопрацювання.</li>
+      <li><strong>Дедлайни</strong> — прострочені домашки (перша ітерація) перевіряються в останню чергу, бо в пріоритеті актуальні роботи.</li>
+      <li><strong>Мова</strong> — на курсах із замовником варто одразу попередити, що захист відбуватиметься виключно українською.</li>
+      <li><strong>Уніфікована ідентичність</strong> — однакові нікнейми й аватарки в Slack, EducateMe і Zoom спрощують запам'ятовування студентів.</li>
+      <li><strong>Відповідальність та цілеспрямованість</strong> — куратор дає максимальну підтримку, але відповідальність за проходження курсу лежить на студенті.</li>
+      <details>
+        <summary><em>Приклади додаткових правил, специфічних для конкретного курсу</em></summary>
+        <div class="toggle-inner">
+          <ul>
+            <li><strong>Якщо на курсі є групові проєкти</strong> — пояснити, як відбуватиметься групова робота і що кожен учасник відповідає за результат усієї групи.</li>
+            <li><strong>Якщо потрібно підписувати NDA</strong> — пояснити, що це нормальна світова практика; студентів, які не підпишуть NDA (у Вчасно), не можна допустити до навчання без повернення коштів.</li>
+            <li><strong>Якщо є додаткові обов'язкові практики</strong> — озвучити їх: наприклад, ділитись зарахованими домашками в спільному каналі Slack або щодня ділитись кейсом у каналі #inspiration.</li>
+            <li><strong>Якщо важливо, щоб студент додавав коментарі до робіт</strong> — можна додати правило, що роботи без коментарів не приймаються.</li>
+          </ul>
+        </div>
+      </details>
+    </ul>
+  </div>
+</details>
+
+<details>
+  <summary>Рекомендації</summary>
+  <div class="toggle-inner">
+    <ul>
+      <li><strong>Важливість комунікації</strong> — закликай студентів до відкритої взаємодії між собою й з куратором: у нас safe space, тут не буває тупих питань. Саме на курсі студенти мають чудову можливість побудувати своє ком'юніті — потужну підтримку в пошуку нової роботи.</li>
+      <li><strong>Важливість помилок</strong> — помилки невід'ємна частина навчання: чим більше їх зробиш на курсі, тим менше зробиш уже у своїй роботі.</li>
+      <li><strong>Важливість повторювань і конспектів</strong> — дослідження показують, що через 20 хвилин людина втрачає близько 40% вивченого, через годину — до 50%, через добу лишається лише 20–30%, а через тиждень — менше 10%, якщо матеріал не повторюється. Нотатки дозволяють не переглядати всю лекцію, а знайти потрібну думку одразу.</li>
+      <li><strong>Порівнювати себе лише з собою</strong> — студенти можуть засмучуватись, порівнюючи свої роботи з іншими, хоча стартові умови в усіх різні. Важливо пояснити, що фокус має бути лише на власному прогресі.</li>
+    </ul>
+  </div>
+</details>
+
+<details>
+  <summary>Також варто озвучити такі орг. моменти</summary>
+  <div class="toggle-inner">
+    <ul>
+      <li><strong>Working hours</strong> — озвуч свої робочі години, щоб студенти розуміли, коли очікувати фідбек.</li>
+      <li><strong>Сертифікат</strong> — розкажи про умови отримання сертифікатів на курсі, зокрема золотих (<a href="04-sertyfikaty.html" data-goto="04">розділ 4</a> цієї книги).</li>
+    </ul>
+  </div>
+</details>
+
+<p><strong>2. Інтро до курсу.</strong></p>
+<ul>
+  <li>Розкажи, що чекає на студентів: загальна арка курсу, курсові, фінальний результат. Демонстрація робіт студентів попередніх потоків дуже надихає — студенти бачать, які роботи можуть вийти під кінець курсу.</li>
+  <li>Обговорення очікувань та цілей на курс.</li>
+  <li>Іноді куратори обирають коротку тему (~20 хв) як інтро в професію, аби студенти з першого заняття відчували, що вчаться новому.</li>
+  <li>Питання по софту / розкладу / інструментам.</li>
+</ul>
+
+<div class="callout">
+  <span class="label">Класна презентація для вебінару-знайомства</span>
+  <p>Шаблон презентації для цієї зустрічі — дивись <a href="02-3-shablony-prezentaciy.html" data-goto="02-3">розділ 2.3 «Шаблон презентацій»</a> цієї книги.</p>
+</div>
+<div class="callout">
+  <span class="label">Важливо</span>
+  <p>Якщо курс вебінарний, перше домашнє завдання варто дати вже після першого вебінару. Це може бути ознайомлення з додатковими матеріалами, визначення цілей на курс, аналіз власної роботи тощо.</p>
+</div>
+<h4>Приклади вебінарів-знайомств</h4>
+<p><strong>IT Project Management</strong> — кураторка ділить всіх на групи в Miro для знайомства, потім одна людина з групи презентує колег.</p>
+<div class="video-embed"><iframe src="https://player.vimeo.com/video/764689556?h=5bd6f2f972" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div>
+<p><strong>Graphic Design Medium</strong> — знайомство через візуальні елементи.</p>
+<div class="video-embed"><iframe src="https://player.vimeo.com/video/827749306?h=35332aeaf8" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div>
+
+</template>
+<div class="tool-card" data-panel="panel-3" tabindex="0" role="button">
+  <div class="tool-tags"><span class="tag required">обов'язковий</span></div>
+  <div class="tool-name">Практичні вебінари (вебінар-воркшоп)</div>
+  <p class="tool-preview">Вебінар, що включає різні активності для відпрацювання теорії на практиці: лайвкодинг куратором або студентами паралельно з…</p>
+  <span class="tool-toggle">Детальніше <span class="schevron">›</span></span>
+</div>
+<template id="panel-3">
+  <div class="panel-eyebrow"><span class="tag required">обов'язковий</span></div>
+  <h2>Практичні вебінари (вебінар-воркшоп)</h2>
+  
+<p>Вебінар, що включає різні активності для відпрацювання теорії на практиці: лайвкодинг куратором або студентами паралельно з куратором, розбір кейсів, розбір помилок, робота в групах, робота з інструментом тощо.</p>
+<p>Такий вебінар може взагалі не включати теоретичну частину, а відштовхуватись виключно від знань, отриманих з лекцій або попередніх вебінарів.</p>
+<p>Для максимальної ефективності вебінару я пропоную використовувати принцип «нашарювання» — вступ, розігрів (warm-up), основна 1–2 активності (з чи без інтенсиву) для пропрацювання нового матеріалу, обговорення, підведення підсумків (рефлексія).</p>
+<div class="callout">
+  <span class="label">🦹 До шаблонів</span>
+  <p>Додаю посилання на шаблони такого вебінару в Notion, які ти можеш продублювати і заповнити з власними ідеями для кожного блоку (справа зверху натисни три крапки — «Дублювати»).</p>
+  <p><a href="https://app.notion.com/p/12afab8c82b0819eb1b5c04ca53b4ea9?pvs=21" target="_blank">Шаблон вебінару — таблиця</a></p>
+  <p><a href="https://app.notion.com/p/12afab8c82b081659236d73e392991cf?pvs=21" target="_blank">Шаблон вебінару — сторінка</a></p>
+</div>
+<h4>Приклади</h4>
+<p class="video-todo">🔴 Тут будуть відеоприклади класних вебінарів.</p>
+<p class="video-todo">🔴 Тут будуть відеоприклади класних вебінарів.</p>
+
+</template>
+<div class="tool-card" data-panel="panel-4" tabindex="0" role="button">
+  <div class="tool-tags"><span class="tag required">обов'язковий</span><span class="tag when">наприкінці курсу</span></div>
+  <div class="tool-name">Кар'єрний вебінар</div>
+  <p class="tool-preview">Повноцінний вебінар про подальше навчання (в тому числі самоосвіту) і кар'єрні можливості для студентів. Важлива зустріч —…</p>
+  <span class="tool-toggle">Детальніше <span class="schevron">›</span></span>
+</div>
+<template id="panel-4">
+  <div class="panel-eyebrow"><span class="tag when">наприкінці курсу</span><span class="tag required">обов'язковий</span></div>
+  <h2>Кар'єрний вебінар</h2>
+  
+<p>Повноцінний вебінар про подальше навчання (в тому числі самоосвіту) і кар'єрні можливості для студентів. Важлива зустріч — нагадати, що це базовий курс, і завжди потрібно продовжувати навчатись та вдосконалювати навички.</p>
+<p><strong>Коли використовувати:</strong> наприкінці курсу.</p>
+
+<p><strong>Мета:</strong> допомогти студентам із підготовкою до процесу працевлаштування; замотивувати студентів до постійного навчання і самовдосконалення; розказати про релевантні для студента курси Проджа та можливі шляхи розвитку.</p>
+
+<p>Чек-лист, про що необхідно розповісти студентам:</p>
+<ul class="checklist">
+  <li><strong>Про свій досвід на старті</strong> + можна додати релевантні кейси знайомих.</li>
+  <li><strong>Про варіативність місць роботи</strong> (аутсорс, продукт, студії, проєкти на фрілансі) і про те, що очікує студентів на початку пошуку роботи.</li>
+  <li><strong>Про Lezo</strong> — кар'єрний сервіс, створений спеціально для студентів Проджа (<a href="01-ekosystema.html" data-goto="01">розділ 1</a> цієї книги). <a href="https://app.notion.com/p/2b5fab8c82b080768c2fd32963f64a2c?pvs=21" target="_blank">Детальніше про те, як розповідати про Lezo →</a></li>
+  <li><strong>Про Кар'єрний курс від Lezo</strong> (детальніше розповідає менеджер курсу студентам в Slack).</li>
+  <li><strong>Перспективи розвитку студентів на цьому етапі</strong> — лінійка курсів, <a href="https://www.prjctrmentor.com/?utm_source=notion&utm_medium=notion-students&utm_campaign=mentorship&utm_term=karjera" target="_blank">менторська платформа</a>, ресурси для натхнення.</li>
+  <li><strong>Про специфіку сфери</strong>, яку корисно знати початківцям (як визначити свій гонорар, де шукати клієнтів тощо).</li>
+</ul>
+<div class="callout">
+  <span class="label">Шаблон презентації для кар'єрного вебінару</span>
+  <p>У презентації міксуємо і підказки, що робити, і інформацію, яку можна розповідати студентам (про траєкторію руху, види компаній, портфоліо) — філ фрі коригувати і змінювати за потреби. <a href="https://www.figma.com/file/7tp2yfyBYmYJ6GIPVZ9PmW/" target="_blank">Файл у Figma →</a></p>
+</div>
+
+<h4>Приклади</h4>
+<p><strong>Graphic Design Beginning</strong></p>
+<div class="video-embed"><iframe src="https://player.vimeo.com/video/850833028?h=04940a3f54" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div>
+<p><strong>Web Design Beginning</strong></p>
+<div class="video-embed"><iframe src="https://player.vimeo.com/video/857252650?h=9f8e16a065" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div>
+
+</template>
+<div class="tool-card" data-panel="panel-5" tabindex="0" role="button">
+  <div class="tool-tags"><span class="tag required">обов'язковий</span><span class="tag when">в кінці кожного набору</span></div>
+  <div class="tool-name">Випускний</div>
+  <p class="tool-preview">Випускний — це обов'язкова цегла, адже це час для рефлексії, фідбеку та підведення підсумків. Майже як ритуал. Жирна крапка в…</p>
+  <span class="tool-toggle">Детальніше <span class="schevron">›</span></span>
+</div>
+<template id="panel-5">
+  <div class="panel-eyebrow"><span class="tag when">в кінці кожного набору</span><span class="tag required">обов'язковий</span></div>
+  <h2>Випускний</h2>
+  
+<p>Випускний — це обов'язкова цегла, адже це час для рефлексії, фідбеку та підведення підсумків. Майже як ритуал. Жирна крапка в кінці курсу. Можливість поділитись враженнями про курс, обмінятись контактами тощо. Це максимально неформальна зустріч, коли вже всі можуть розслабитись і просто провести час у своє задоволення.</p>
+<p class="note">Можна об'єднати із захистом курсових робіт, якщо захист триває менше ніж 1 годину.</p>
+
+<h4>Мета зустрічі</h4>
+<ul>
+  <li>Підбити особисті підсумки проходження курсу: що вдалося, що не вдалося, чим пишаємося.</li>
+  <li>Побачити прогрес — емоційний, професійний, креативний.</li>
+  <li>Створити простір для щирого фідбеку, розмов та розслабленого нетворкінгу між студентами й куратором.</li>
+  <li>Якщо на початку курсу ставили цілі — повернутись до них і порефлексувати: що здійснилось, що змінилось.</li>
+  <li>Підтримати дух спільноти та відчути завершення навчального етапу неформально, але зі змістом.</li>
+</ul>
+
+<h4>Рекомендації щодо проведення</h4>
+<ul>
+  <li>Випускний — це свято! Тому важливо створити невимушену, радісну атмосферу: можна з напоєм, у капелюсі або з іншим візуальним «спешл-елементом» (можна вигадати тему чи дрескод).</li>
+  <li>На випускному можна і треба заохочувати студентів ділитись фідбеком на вашу роботу і на курс загалом, зокрема заповнити форму зворотного зв'язку, яку їм надсилає менеджер курсу. Ці відгуки дуже важливі — вони дають можливість робити наші курси ще кращими.</li>
+  <li>Класно організувати обмін контактами — наприклад, створити відповідний тред у Slack або FigJam-борді.</li>
+</ul>
+
+<h4>Ідеї для активностей</h4>
+<ol>
+  <li><strong>Індивідуальна рефлексія</strong> — студенти по черзі або у форматі вільної черги показують/розповідають: свої роботи з курсу (найулюбленіша і найменш улюблена робота); що було страшно/незрозуміло спочатку, а стало норм; що не вийшло, чому, як сприймається зараз; найбільші відкриття/успіхи; свої перші очікування vs реальний досвід.</li>
+  <li><strong>«Що далі?» — міні-коучинг</strong> — кожен відповідає на запитання: який мій наступний крок після курсу? Що хочу спробувати/змінити/впровадити вже цього тижня?</li>
+  <li><strong>Факап-івнінг (15–20 хв)</strong> — всі діляться своїми «найкращими невдачами» — з гумором, підтримкою, без осуду.</li>
+  <li><strong>Рефлексія через меми</strong> — попросити студентів підготувати мем, який транслює їхні враження від курсу. Можна використовувати <a href="https://imgflip.com/" target="_blank">онлайн-генератор мемів</a>.</li>
+  <li><strong>Церемонія «Оскар»</strong> — зробити FigJam-борд з номінаціями («Найкращий результат», «Найкраща дія», «Найкраща зміна»), де студенти самі пишуть на стікерах, за що можуть собі дати той чи інший «оскар». Або куратор влаштовує церемонію вручення сам.</li>
+  <li><strong>Вручення дипломів</strong> — підготувати дипломи кожному студенту за якесь індивідуальне досягнення.</li>
+  <li><strong>Послання майбутнім студентам</strong> — попросити студентів записати на FigJam-борді послання для студентів наступних потоків, а на вебінарі-знайомстві наступного потоку — озвучити ці послання новачкам.</li>
+</ol>
+<div class="callout">
+  <span class="label">💡</span>
+  <p>Окремо варто зробити акцент на необхідності заповнення форми фідбеку, яка відкривається студентам в EducateMe як домашка від менеджера. Це гарантує отримання більшої кількості відгуків, а значить у нас буде більше ідей для покращення.</p>
+</div>
+
+<h4>Приклади</h4>
+<p><strong>IT Project Management</strong></p>
+<div class="video-embed"><iframe src="https://player.vimeo.com/video/844341452?h=f2123e8a68" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div>
+<p><strong>Приклад випускного із врученням «Оскарів»</strong> від кураторки Каті Дідик</p>
+<div class="video-embed"><iframe src="https://player.vimeo.com/video/934188558?h=135f43543e" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div>
+
+</template>
+<div class="tool-card" data-panel="panel-6" tabindex="0" role="button">
+  <div class="tool-tags"><span class="tag required">обов'язковий</span><span class="tag ">курсовий проєкт</span></div>
+  <div class="tool-name">Брифінг по курсовому проєкту</div>
+  <p class="tool-preview">Регулярність залежить від кількості замовників на курсі. Менеджер присутній за потреби.</p>
+  <span class="tool-toggle">Детальніше <span class="schevron">›</span></span>
+</div>
+<template id="panel-6">
+  <div class="panel-eyebrow"><span class="tag required">обов'язковий</span><span class="tag ">курсовий проєкт</span></div>
+  <h2>Брифінг по курсовому проєкту</h2>
+  
+<p><em>Регулярність залежить від кількості замовників на курсі. Менеджер присутній за потреби.</em></p>
+<p>🙌 <a href="03-5-kursovi-proekty.html" data-goto="03-5">Як працювати з курсовими проєктами (та замовниками)?</a> — розділ 3.5 цієї книги.</p>
+<p class="note">Якщо на курсі передбачена робота з реальним кейсом, брифінг проводить замовник; якщо курсовий проєкт без замовника — студентів брифує куратор.</p>
+
+<h4>До</h4>
+<ul class="checklist">
+  <li>Студенти читають розгорнутий бриф та всі додаткові документи (можна попередити підготувати питання і, якщо в групах, зустрітись/списатись з командою заздалегідь).</li>
+  <li>Запрошуємо замовника на бриф.</li>
+</ul>
+<h4>Вебінар-бриф</h4>
+<ul class="checklist">
+  <li>Презентація замовника.</li>
+  <li>5–7 запитань від куратора.</li>
+  <li>Якщо в групах — 5–7 хвилин кожній команді на запитання.</li>
+</ul>
+<h4>Після</h4>
+<ul class="checklist">
+  <li>Менеджер створює Google Doc або канал у Slack для додаткових запитань.</li>
+  <li>Надсилаємо запитання замовнику.</li>
+  <li>Чекаємо на письмову відповідь.</li>
+</ul>
+<h4>Приклад</h4>
+<p><strong>Product Marketing</strong></p>
+<div class="video-embed"><iframe src="https://player.vimeo.com/video/845509057?h=e04ef11929" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div>
+
+</template>
+<div class="tool-card" data-panel="panel-7" tabindex="0" role="button">
+  <div class="tool-tags"><span class="tag required">обов'язковий</span><span class="tag ">курсовий проєкт</span></div>
+  <div class="tool-name">Передзахист курсових робіт</div>
+  <p class="tool-preview">Попередній захист робіт для куратора, але без замовника. Можливість студентам потренувати навички й внести останні правки…</p>
+  <span class="tool-toggle">Детальніше <span class="schevron">›</span></span>
+</div>
+<template id="panel-7">
+  <div class="panel-eyebrow"><span class="tag required">обов'язковий</span><span class="tag ">курсовий проєкт</span></div>
+  <h2>Передзахист курсових робіт</h2>
+  
+<p>Попередній захист робіт для куратора, але без замовника. Можливість студентам потренувати навички й внести останні правки після фідбеку куратора.</p>
+<h4>Приклад</h4>
+<p><strong>Product Management Beginning</strong></p>
+<div class="video-embed"><iframe src="https://player.vimeo.com/video/851402352?h=46270ef6af" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div>
+
+</template>
+<div class="tool-card" data-panel="panel-8" tabindex="0" role="button">
+  <div class="tool-tags"><span class="tag required">обов'язковий</span><span class="tag ">курсовий проєкт</span></div>
+  <div class="tool-name">Захист курсових робіт</div>
+  <p class="tool-preview">Фінальним етапом роботи з курсовим проєктом є захист кейсу студентами перед замовником.</p>
+  <span class="tool-toggle">Детальніше <span class="schevron">›</span></span>
+</div>
+<template id="panel-8">
+  <div class="panel-eyebrow"><span class="tag required">обов'язковий</span><span class="tag ">курсовий проєкт</span></div>
+  <h2>Захист курсових робіт</h2>
+  
+<p>Фінальним етапом роботи з курсовим проєктом є захист кейсу студентами перед замовником.</p>
+<p>На захисті куратор є модератором процесу та повинен слідкувати за таймінгом. По факту захисту замовник та куратор надають фідбек кожній групі студентів або по окремих роботах.</p>
+<div class="callout">
+  <p>Я дуже раджу проводити декілька захистів/публічних презентацій протягом курсу (навіть без замовника, просто групі), щоб відпрацювати навички презентації та захисту власної роботи.</p>
+</div>
+<ul class="checklist">
+  <li><strong>Привітання та логістика</strong>
+    <ul>
+      <li>Представити проєкт</li>
+      <li>Представити замовника</li>
+      <li>Налаштувати студентів та підтримати їх</li>
+      <li>Скільки часу та в якому порядку триватиме захист кожного студента/кожної групи?</li>
+      <li>На початку вирішити, чи даватиме замовник коментарі по кожному проєкту, чи прокоментує усі роботи в кінці</li>
+    </ul>
+  </li>
+  <li><strong>Фідбек</strong>
+    <ul><li>Час для замовника дати загальний фідбек та встановити рамки, коли вони зможуть оголосити переможця(ців)</li></ul>
+  </li>
+  <li><strong>Post-mortem</strong>
+    <ul><li>Прощаємось із замовником та дякуємо за спільну роботу</li></ul>
+  </li>
+</ul>
+<h4>Приклад</h4>
+<p><strong>Sales Basic</strong></p>
+<div class="video-embed"><iframe src="https://player.vimeo.com/video/842449483?h=2f8088f1f2" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div>
+
+</template>
+<div class="tool-card" data-panel="panel-9" tabindex="0" role="button">
+  <div class="tool-tags"><span class="tag required">обов'язковий</span><span class="tag when">на вебінарних курсах</span></div>
+  <div class="tool-name">Теорія + практика</div>
+  <p class="tool-preview">Мікс теорії та практики — під час вебінару розглядають і теоретичну, і практичну частину; залежно від курсу чи теми…</p>
+  <span class="tool-toggle">Детальніше <span class="schevron">›</span></span>
+</div>
+<template id="panel-9">
+  <div class="panel-eyebrow"><span class="tag when">на вебінарних курсах</span><span class="tag required">обов'язковий</span></div>
+  <h2>Теорія + практика</h2>
+  
+<p>Мікс теорії та практики — під час вебінару розглядають і теоретичну, і практичну частину; залежно від курсу чи теми співвідношення може бути різним.</p>
+<p><strong>Коли використовувати:</strong> обов'язковий формат на вебінарних курсах.</p>
+<p class="note">Теорія та практика можуть подаватись послідовно або міксуватись — я раджу ділити вебінар на блоки й чергувати їх, щоб краще засвоїти матеріал і підтримувати залученість студентів.</p>
+<h4>Приклади</h4>
+<p><strong>SMM for Business</strong></p>
+<div class="video-embed"><iframe src="https://player.vimeo.com/video/857994825?h=5010a4eb2d" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div>
+<p><strong>Python Beginning</strong></p>
+<div class="video-embed"><iframe src="https://player.vimeo.com/video/841455258?h=879a1a8af1" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div>
+
+</template>
+<div class="tool-card" data-panel="panel-10" tabindex="0" role="button">
+  <div class="tool-tags"><span class="tag recommended">рекомендований</span></div>
+  <div class="tool-name">Вебінар із запрошеним гостем</div>
+  <p class="tool-preview">Може відбуватись за структурою «академ-вебінару», у форматі воркшопу (лекція + практика + фідбек), або просто як Q&amp;A.…</p>
+  <span class="tool-toggle">Детальніше <span class="schevron">›</span></span>
+</div>
+<template id="panel-10">
+  <div class="panel-eyebrow"><span class="tag recommended">рекомендований</span></div>
+  <h2>Вебінар із запрошеним гостем</h2>
+  
+<p>Може відбуватись за структурою «академ-вебінару», у форматі воркшопу (лекція + практика + фідбек), або просто як Q&amp;A. Детальніше про роботу з гостьовими лекторами — у <a href="02-5-gostyovi-lektory.html" data-goto="02-5">розділі 2.5</a> цієї книги.</p>
+<p class="note">Я рекомендую кликати гостей на курси тривалістю від 3 місяців, щоб урізноманітнити досвід студентів.</p>
+<h4>Приклад</h4>
+<p><strong>B2B Sales</strong></p>
+<div class="video-embed"><iframe src="https://player.vimeo.com/video/806499137?h=6b6051cb01" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div>
+
+</template>
+<div class="tool-card" data-panel="panel-11" tabindex="0" role="button">
+  <div class="tool-tags"><span class="tag recommended">рекомендований</span><span class="tag when">як активність або окремий розбір кейсу</span></div>
+  <div class="tool-name">Case Study</div>
+  <p class="tool-preview">Розбір (переважно) реального кейсу для глибшого засвоєння теорії: аналіз рішень, пошук альтернативних варіантів, аудит…</p>
+  <span class="tool-toggle">Детальніше <span class="schevron">›</span></span>
+</div>
+<template id="panel-11">
+  <div class="panel-eyebrow"><span class="tag when">як активність або окремий розбір кейсу</span><span class="tag recommended">рекомендований</span></div>
+  <h2>Case Study</h2>
+  
+<p>Розбір (переважно) реального кейсу для глибшого засвоєння теорії: аналіз рішень, пошук альтернативних варіантів, аудит реальних продуктів, занурення в контекст тощо.</p>
+<p><strong>Коли використовувати:</strong> як активність у рамках інших форматів вебінарів, або як окремий 1,5–2-годинний розбір великого кейсу чи кількох.</p>
+<p class="note">Дуже часто куратори як кейс розглядають власні проєкти або робочі задачі.</p>
+<h4>Приклад</h4>
+<p><strong>Machine Learning Beginning</strong></p>
+<div class="video-embed"><iframe src="https://player.vimeo.com/video/845515304?h=da0ce59a7a" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div>
+
+</template>
+<div class="tool-card" data-panel="panel-12" tabindex="0" role="button">
+  <div class="tool-tags"><span class="tag recommended">рекомендований</span><span class="tag when">додатково, часто в кінці курсу</span></div>
+  <div class="tool-name">Q&A сесія</div>
+  <p class="tool-preview">Додаткова зустріч студентів з куратором, де розбираються всі питання, що цікавлять студентів, або те, що не встигли розглянути…</p>
+  <span class="tool-toggle">Детальніше <span class="schevron">›</span></span>
+</div>
+<template id="panel-12">
+  <div class="panel-eyebrow"><span class="tag when">додатково, часто в кінці курсу</span><span class="tag recommended">рекомендований</span></div>
+  <h2>Q&A сесія</h2>
+  
+<p>Додаткова зустріч студентів з куратором, де розбираються всі питання, що цікавлять студентів, або те, що не встигли розглянути на попередньому вебінарі.</p>
+<p><strong>Коли використовувати:</strong> додатково до основної програми; часто — під кінець курсу для розбору питань по курсовому проєкту.</p>
+<p class="note">Ініціювати може як студент (у якого накопичились питання), так і куратор (який помітив патерн помилок або хоче додатково розібрати тему).</p>
+<h4>Приклад</h4>
+<p><strong>Product Analytics. Data Mining</strong></p>
+<div class="video-embed"><iframe src="https://player.vimeo.com/video/830837595?h=24a76fe4e7" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div>
+
+</template>
+<div class="tool-card" data-panel="panel-13" tabindex="0" role="button">
+  <div class="tool-tags"><span class="tag recommended">рекомендований</span></div>
+  <div class="tool-name">Ретроспектива / вебінар-рефлексія</div>
+  <p class="tool-preview">Я пропоную проводити його щомісяця, після важливого проєкту або після фінального проєкту. Також цей формат можна використати…</p>
+  <span class="tool-toggle">Детальніше <span class="schevron">›</span></span>
+</div>
+<template id="panel-13">
+  <div class="panel-eyebrow"><span class="tag recommended">рекомендований</span></div>
+  <h2>Ретроспектива / вебінар-рефлексія</h2>
+  
+<p>Я пропоную проводити його щомісяця, після важливого проєкту або після фінального проєкту. Також цей формат можна використати як частину звичайного вебінару для фідбеку по значних домашках чи брифах, скоротивши час проведення до 15–20 хв.</p>
+<ul class="checklist">
+  <li><strong>Фідбек куратора/ментора</strong>
+    <ul>
+      <li>Загальні враження + фідбек замовника (якщо є)</li>
+      <li>Що було добре?</li>
+      <li>Де недопрацювали?</li>
+      <li>Які є загальні помилки, яких припустилась більшість?</li>
+      <li>Якщо робота була в групах — варто прокоментувати кожну групу</li>
+    </ul>
+  </li>
+  <li><strong>Рефлексія — враження студентів</strong>
+    <ul>
+      <li>Що вивчили з цього досвіду?</li>
+      <li>Що хотілося б зробити інакше наступного разу?</li>
+      <li>Важливо звернути увагу як на процес, так і на результат</li>
+      <li>Зворотний зв'язок: чим ми можемо їм допомогти (комунікація з замовником, інструкції, дедлайни) наступного разу?</li>
+    </ul>
+  </li>
+  <li><strong>Підсумки</strong>
+    <ul>
+      <li>Як ця робота вписувалась в арку курсу? З чим працюватимемо далі впродовж курсу?</li>
+      <li>Що далі? Як це може допомогти з огляду на професію?</li>
+      <li>Резюмуючи: основні підсумки з рефлексії та 1, 2, 3 — про що точно треба пам'ятати наступного разу</li>
+    </ul>
+  </li>
+</ul>
+<h4>Приклад</h4>
+<p><strong>Soft Skills for New Reality</strong></p>
+<div class="video-embed"><iframe src="https://player.vimeo.com/video/823111677?h=45e7c6810d" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div>
+
+</template>
+<div class="tool-card" data-panel="panel-14" tabindex="0" role="button">
+  <div class="tool-tags"></div>
+  <div class="tool-name">«Демо-день» або «Сайт за годину»</div>
+  <p class="tool-preview">Рівень Beginner. Я пропоную використовувати раз на курс. Краще працює як окремий формат вебінару й може бути альтернативою…</p>
+  <span class="tool-toggle">Детальніше <span class="schevron">›</span></span>
+</div>
+<template id="panel-14">
+  <div class="panel-eyebrow"></div>
+  <h2>«Демо-день» або «Сайт за годину»</h2>
+  
+<p>Рівень Beginner. Я пропоную використовувати раз на курс. Краще працює як окремий формат вебінару й може бути альтернативою звичному «нашаруванню».</p>
+<p>Студенти обирають тему, придумують завдання, встановлюють обмеження, яких має дотримуватись куратор/ментор. Час обмежений.</p>
+<p>При цьому шериться екран, і студенти мають можливість подивитись на процес, дізнатись лайфхаки та поставити питання, що не виникли б інакше.</p>
+
+</template>
+</div>
+
+  </div>
+  <button class="next-chapter" data-goto="02-2">
+    <div class="lbl">Далі</div>
+    <div class="ttl">Інтерактиви</div>
+  </button>
+  <div class="author-box">
+    <div class="avatar">PI</div>
+    <div>
+      <div class="name">Продюсерська команда Projector Institute</div>
+      <div class="bio">Ця книга зібрана з бази знань кураторів — понад 10-річного досвіду роботи зі студентами, курсами та вебінарами.</div>
+    </div>
+  </div>
+</article>
+
+<article class="chapter-pane" id="page-02-2" hidden>
+  <button class="back-link" data-goto="toc">← Зміст книги</button>
+  <header class="chapter-head">
+    <div class="chapter-eyebrow">Розділ 2.2 — Вебінари</div>
+    <h1>Інтерактиви</h1>
+    <p class="subtitle">Банк вправ для розігріву, основної активності, інтенсиву й рефлексії</p>
+  </header>
+  <div class="chapter-body">
+    
+<p>Банк інтерактивів для вебінарів — обери за рівнем студентів (Beginner / Middle / Pro) і за тим, для якої частини заняття потрібна активність: розігрів, основна активність, інтенсив, рефлексія чи 1:1. Натисни на картку, щоб розгорнути опис і приклад.</p>
+<div class="tool-grid"><div class="tool-card" data-panel="panel-15" tabindex="0" role="button">
+  <div class="tool-tags"><span class="tag level">Beginner</span><span class="tag level">Middle</span><span class="tag part">розігрів</span><span class="tag part">інтенсив</span></div>
+  <div class="tool-name">Жуки</div>
+  <p class="tool-preview">Якщо працюєш з конкретним софтом — класно час від часу проводити заняття, де треба щось зробити з цим…</p>
+  <span class="tool-toggle">Детальніше <span class="schevron">›</span></span>
+</div>
+<template id="panel-15">
+  <div class="panel-eyebrow"><span class="tag level">Beginner</span><span class="tag level">Middle</span><span class="tag part">розігрів</span><span class="tag part">інтенсив</span></div>
+  <h2>Жуки</h2>
+  <p>Якщо працюєш з конкретним софтом — класно час від часу проводити заняття, де треба щось зробити з цим софтом прямо на вебінарі. Виринає багато питань і створюється простір попрацювати над задачею.</p>
+  <p><strong>Наприклад:</strong> Навчитись користуватись пером у фотошопі на базовому курсі граф-дизайну.</p>
+</template>
+<div class="tool-card" data-panel="panel-16" tabindex="0" role="button">
+  <div class="tool-tags"><span class="tag level">Beginner</span><span class="tag level">Middle</span><span class="tag level">Pro</span><span class="tag part">рефлексія:підсумки</span></div>
+  <div class="tool-name">Reflection poll</div>
+  <p class="tool-preview">В кінці заняття 1–2 питання, що перевіряють, наскільки студент зрозумів матеріал. Обов'язково обмеж часом:…</p>
+  <span class="tool-toggle">Детальніше <span class="schevron">›</span></span>
+</div>
+<template id="panel-16">
+  <div class="panel-eyebrow"><span class="tag level">Beginner</span><span class="tag level">Middle</span><span class="tag level">Pro</span><span class="tag part">рефлексія:підсумки</span></div>
+  <h2>Reflection poll</h2>
+  <p>В кінці заняття 1–2 питання, що перевіряють, наскільки студент зрозумів матеріал. Обов'язково обмеж часом: 4–6 хвилин на письмову відповідь.</p>
+  <p><strong>Наприклад:</strong> Питання має бути відкритим і перевіряти розуміння («чому композиція важлива для створення емоцій», а не «що таке композиція»).</p>
+</template>
+<div class="tool-card" data-panel="panel-17" tabindex="0" role="button">
+  <div class="tool-tags"><span class="tag level">Beginner</span><span class="tag level">Middle</span><span class="tag level">Pro</span><span class="tag part">розігрів</span></div>
+  <div class="tool-name">Kyiv Times</div>
+  <p class="tool-preview">Розбирати новини у сфері курсу й обговорювати їх у контексті лекцій. Що застаріло? Що нового? Як це…</p>
+  <span class="tool-toggle">Детальніше <span class="schevron">›</span></span>
+</div>
+<template id="panel-17">
+  <div class="panel-eyebrow"><span class="tag level">Beginner</span><span class="tag level">Middle</span><span class="tag level">Pro</span><span class="tag part">розігрів</span></div>
+  <h2>Kyiv Times</h2>
+  <p>Розбирати новини у сфері курсу й обговорювати їх у контексті лекцій. Що застаріло? Що нового? Як це вписується (або ні) в те, про що вже говорили?</p>
+  <p><strong>Наприклад:</strong> Тема — продуктові фічі. Лекція записана пів року тому, за цей час запустили купу нових фіч. Розібрати кілька найцікавіших.</p>
+</template>
+<div class="tool-card" data-panel="panel-18" tabindex="0" role="button">
+  <div class="tool-tags"><span class="tag level">Beginner</span><span class="tag level">Middle</span><span class="tag level">Pro</span><span class="tag part">розігрів</span></div>
+  <div class="tool-name">Аналогія</div>
+  <p class="tool-preview">«На що це схоже з того, що я вже знаю?» Допомагає поєднати з попередніми темами курсу, побачити…</p>
+  <span class="tool-toggle">Детальніше <span class="schevron">›</span></span>
+</div>
+<template id="panel-18">
+  <div class="panel-eyebrow"><span class="tag level">Beginner</span><span class="tag level">Middle</span><span class="tag level">Pro</span><span class="tag part">розігрів</span></div>
+  <h2>Аналогія</h2>
+  <p>«На що це схоже з того, що я вже знаю?» Допомагає поєднати з попередніми темами курсу, побачити застосування у власній роботі й краще запам'ятати матеріал.</p>
+  <p><strong>Наприклад:</strong> Вивчили класифікацію фіч продукту — задача: класифікувати фічі застосунку виклику таксі, яким постійно користуєшся.</p>
+</template>
+<div class="tool-card" data-panel="panel-19" tabindex="0" role="button">
+  <div class="tool-tags"><span class="tag level">Beginner</span><span class="tag level">Middle</span><span class="tag level">Pro</span><span class="tag part">основна активність</span></div>
+  <div class="tool-name">Симулякр</div>
+  <p class="tool-preview">Симулювання реальної ситуації: інтерв'ю, робота із замовником, отримання гранту. Зазвичай використовується…</p>
+  <span class="tool-toggle">Детальніше <span class="schevron">›</span></span>
+</div>
+<template id="panel-19">
+  <div class="panel-eyebrow"><span class="tag level">Beginner</span><span class="tag level">Middle</span><span class="tag level">Pro</span><span class="tag part">основна активність</span></div>
+  <h2>Симулякр</h2>
+  <p>Симулювання реальної ситуації: інтерв'ю, робота із замовником, отримання гранту. Зазвичай використовується в масштабі курсу й дз, але можна й на вебінарі.</p>
+  
+</template>
+<div class="tool-card" data-panel="panel-20" tabindex="0" role="button">
+  <div class="tool-tags"><span class="tag level">Beginner</span><span class="tag level">Middle</span><span class="tag level">Pro</span><span class="tag part">розігрів</span><span class="tag part">рефлексія:підсумки</span></div>
+  <div class="tool-name">Тухла риба (Hyperisland)</div>
+  <p class="tool-preview">Коротка вправа на 10–15 хв на початку воркшопу, щоб поділитись переживаннями й напругою. Метафора «тухлої…</p>
+  <span class="tool-toggle">Детальніше <span class="schevron">›</span></span>
+</div>
+<template id="panel-20">
+  <div class="panel-eyebrow"><span class="tag level">Beginner</span><span class="tag level">Middle</span><span class="tag level">Pro</span><span class="tag part">розігрів</span><span class="tag part">рефлексія:підсумки</span></div>
+  <h2>Тухла риба (Hyperisland)</h2>
+  <p>Коротка вправа на 10–15 хв на початку воркшопу, щоб поділитись переживаннями й напругою. Метафора «тухлої риби» — це те, що ти носиш із собою і не хочеш про це говорити, але чим довше приховуєш, тим сильніше воно смердить.</p>
+  <p><strong>Наприклад:</strong> Малюємо на аркуші велику рибу, всередині пишемо, що дратує найбільше, і ділимось з усіма.</p>
+</template>
+<div class="tool-card" data-panel="panel-21" tabindex="0" role="button">
+  <div class="tool-tags"><span class="tag level">Beginner</span><span class="tag level">Middle</span><span class="tag part">основна активність</span></div>
+  <div class="tool-name">Перші три кроки</div>
+  <p class="tool-preview">На курсах з масштабним проєктом — колективно або на прикладі куратора почати роботу над проєктом,…</p>
+  <span class="tool-toggle">Детальніше <span class="schevron">›</span></span>
+</div>
+<template id="panel-21">
+  <div class="panel-eyebrow"><span class="tag level">Beginner</span><span class="tag level">Middle</span><span class="tag part">основна активність</span></div>
+  <h2>Перші три кроки</h2>
+  <p>На курсах з масштабним проєктом — колективно або на прикладі куратора почати роботу над проєктом, виконавши перші три кроки. Допомагає (читай: змушує) почати працювати.</p>
+  <p><strong>Наприклад:</strong> У проєкті створення айдентики для замовника — разом провести ресерч і обговорення референсів, ЦА та конкурентів.</p>
+</template>
+<div class="tool-card" data-panel="panel-22" tabindex="0" role="button">
+  <div class="tool-tags"><span class="tag level">Beginner</span><span class="tag level">Middle</span><span class="tag level">Pro</span><span class="tag part">рефлексія:підсумки</span><span class="tag part">1:1</span></div>
+  <div class="tool-name">Ментор ↔ коуч</div>
+  <p class="tool-preview">Змінювати позицію: від менторства (даєш фідбек через призму власного досвіду) до коучингу (не маєш…</p>
+  <span class="tool-toggle">Детальніше <span class="schevron">›</span></span>
+</div>
+<template id="panel-22">
+  <div class="panel-eyebrow"><span class="tag level">Beginner</span><span class="tag level">Middle</span><span class="tag level">Pro</span><span class="tag part">рефлексія:підсумки</span><span class="tag part">1:1</span></div>
+  <h2>Ментор ↔ коуч</h2>
+  <p>Змінювати позицію: від менторства (даєш фідбек через призму власного досвіду) до коучингу (не маєш позиції, але підтримуєш студента й допомагаєш усвідомити власний досвід).</p>
+  
+</template>
+<div class="tool-card" data-panel="panel-23" tabindex="0" role="button">
+  <div class="tool-tags"><span class="tag level">Beginner</span><span class="tag level">Middle</span><span class="tag level">Pro</span><span class="tag part">розігрів</span></div>
+  <div class="tool-name">НЕ працює</div>
+  <p class="tool-preview">Разом зі студентами розібрати спільну помилку, яку всі або більшість допускають у домашках чи роботі над…</p>
+  <span class="tool-toggle">Детальніше <span class="schevron">›</span></span>
+</div>
+<template id="panel-23">
+  <div class="panel-eyebrow"><span class="tag level">Beginner</span><span class="tag level">Middle</span><span class="tag level">Pro</span><span class="tag part">розігрів</span></div>
+  <h2>НЕ працює</h2>
+  <p>Разом зі студентами розібрати спільну помилку, яку всі або більшість допускають у домашках чи роботі над проєктом.</p>
+  
+</template>
+<div class="tool-card" data-panel="panel-24" tabindex="0" role="button">
+  <div class="tool-tags"><span class="tag level">Beginner</span><span class="tag level">Middle</span><span class="tag level">Pro</span><span class="tag part">інтенсив</span></div>
+  <div class="tool-name">TRX</div>
+  <p class="tool-preview">Озвучуємо задачу і даємо обмежений час на її вирішення. Результати — в Slack-канал. По завершенню часу…</p>
+  <span class="tool-toggle">Детальніше <span class="schevron">›</span></span>
+</div>
+<template id="panel-24">
+  <div class="panel-eyebrow"><span class="tag level">Beginner</span><span class="tag level">Middle</span><span class="tag level">Pro</span><span class="tag part">інтенсив</span></div>
+  <h2>TRX</h2>
+  <p>Озвучуємо задачу і даємо обмежений час на її вирішення. Результати — в Slack-канал. По завершенню часу розбираємо отримані результати, куратор дає свій фідбек, студенти — свій, а в кінці робимо загальний підсумок найкращих стратегій.</p>
+  <p><strong>Наприклад:</strong> Переосмислити дитячі майданчики — як вони можуть виглядати інакше. Час 7 хв, формат довільний.</p>
+</template>
+<div class="tool-card" data-panel="panel-25" tabindex="0" role="button">
+  <div class="tool-tags"><span class="tag level">Beginner</span><span class="tag level">Middle</span><span class="tag level">Pro</span><span class="tag part">розігрів</span></div>
+  <div class="tool-name">common questions & confusions</div>
+  <p class="tool-preview">Простір, де студенти можуть запитати що завгодно по домашці, програмі чи матеріалам лекцій. Зазвичай 10–15…</p>
+  <span class="tool-toggle">Детальніше <span class="schevron">›</span></span>
+</div>
+<template id="panel-25">
+  <div class="panel-eyebrow"><span class="tag level">Beginner</span><span class="tag level">Middle</span><span class="tag level">Pro</span><span class="tag part">розігрів</span></div>
+  <h2>common questions & confusions</h2>
+  <p>Простір, де студенти можуть запитати що завгодно по домашці, програмі чи матеріалам лекцій. Зазвичай 10–15 хв на початку вебінару.</p>
+  <p><strong>Наприклад:</strong> За відсутності питань від студентів — підготуй 4–6 питань, які «мали б виникнути».</p>
+</template>
+<div class="tool-card" data-panel="panel-26" tabindex="0" role="button">
+  <div class="tool-tags"><span class="tag level">Beginner</span><span class="tag level">Middle</span><span class="tag level">Pro</span><span class="tag part">інтенсив</span></div>
+  <div class="tool-name">Швидкий малюнок</div>
+  <p class="tool-preview">Коротка задача на креативність з чітким таймінгом. Не обов'язково саме малювати — головне таймінг, чіткі…</p>
+  <span class="tool-toggle">Детальніше <span class="schevron">›</span></span>
+</div>
+<template id="panel-26">
+  <div class="panel-eyebrow"><span class="tag level">Beginner</span><span class="tag level">Middle</span><span class="tag level">Pro</span><span class="tag part">інтенсив</span></div>
+  <h2>Швидкий малюнок</h2>
+  <p>Коротка задача на креативність з чітким таймінгом. Не обов'язково саме малювати — головне таймінг, чіткі рамки й креатив.</p>
+  <p><strong>Наприклад:</strong> Створити логотип для ветклініки за 5 хв, використовуючи зелений і трикутник.</p>
+</template>
+<div class="tool-card" data-panel="panel-27" tabindex="0" role="button">
+  <div class="tool-tags"><span class="tag level">Beginner</span><span class="tag level">Middle</span><span class="tag part">основна активність</span></div>
+  <div class="tool-name">Діаграми/інфографіки/графіки/віжуали</div>
+  <p class="tool-preview">Видали частину позначень зі схематичного матеріалу й попроси студентів доповнити, спираючись на власні…</p>
+  <span class="tool-toggle">Детальніше <span class="schevron">›</span></span>
+</div>
+<template id="panel-27">
+  <div class="panel-eyebrow"><span class="tag level">Beginner</span><span class="tag level">Middle</span><span class="tag part">основна активність</span></div>
+  <h2>Діаграми/інфографіки/графіки/віжуали</h2>
+  <p>Видали частину позначень зі схематичного матеріалу й попроси студентів доповнити, спираючись на власні знання. Або просто робота з ілюстративними матеріалами: що означають ці цифри, чого тут не вистачає.</p>
+  
+</template>
+<div class="tool-card" data-panel="panel-28" tabindex="0" role="button">
+  <div class="tool-tags"><span class="tag level">Beginner</span><span class="tag level">Middle</span><span class="tag level">Pro</span><span class="tag part">основна активність</span><span class="tag part">інтенсив</span><span class="tag part">рефлексія:підсумки</span></div>
+  <div class="tool-name">Додати/запитати/відфідбечити</div>
+  <p class="tool-preview">Щоб залучити інших студентів у роботу когось одного — вони мають додати ідею до аналізу, поставити питання…</p>
+  <span class="tool-toggle">Детальніше <span class="schevron">›</span></span>
+</div>
+<template id="panel-28">
+  <div class="panel-eyebrow"><span class="tag level">Beginner</span><span class="tag level">Middle</span><span class="tag level">Pro</span><span class="tag part">основна активність</span><span class="tag part">інтенсив</span><span class="tag part">рефлексія:підсумки</span></div>
+  <h2>Додати/запитати/відфідбечити</h2>
+  <p>Щоб залучити інших студентів у роботу когось одного — вони мають додати ідею до аналізу, поставити питання або висловити критику.</p>
+  <p><strong>Наприклад:</strong> Перед презентацією студента попередь усіх, що саме на них чекає — тоді вони активніше залучаться і в презентацію, і в обговорення.</p>
+</template>
+<div class="tool-card" data-panel="panel-29" tabindex="0" role="button">
+  <div class="tool-tags"><span class="tag level">Beginner</span><span class="tag level">Middle</span><span class="tag part">розігрів</span><span class="tag part">рефлексія:підсумки</span></div>
+  <div class="tool-name">Однороги і пірати</div>
+  <p class="tool-preview">Перед колективним фідбеком дай студенту обрати: чи звернути увагу на сильні сторони й похвалити (одноріг),…</p>
+  <span class="tool-toggle">Детальніше <span class="schevron">›</span></span>
+</div>
+<template id="panel-29">
+  <div class="panel-eyebrow"><span class="tag level">Beginner</span><span class="tag level">Middle</span><span class="tag part">розігрів</span><span class="tag part">рефлексія:підсумки</span></div>
+  <h2>Однороги і пірати</h2>
+  <p>Перед колективним фідбеком дай студенту обрати: чи звернути увагу на сильні сторони й похвалити (одноріг), чи розкритикувати й вказати на помилки (пірат).</p>
+  <p><strong>Наприклад:</strong> Використовується після захисту чи презентації робіт, щоб усі розуміли контекст фідбеку.</p>
+</template>
+<div class="tool-card" data-panel="panel-30" tabindex="0" role="button">
+  <div class="tool-tags"><span class="tag level">Beginner</span><span class="tag level">Middle</span><span class="tag level">Pro</span><span class="tag part">рефлексія:підсумки</span></div>
+  <div class="tool-name">Amazon review</div>
+  <p class="tool-preview">Кожен учасник залишає рев'ю на роботу в групі/проєкт/ідею, ніби описує продукт на Amazon: чи виправдались…</p>
+  <span class="tool-toggle">Детальніше <span class="schevron">›</span></span>
+</div>
+<template id="panel-30">
+  <div class="panel-eyebrow"><span class="tag level">Beginner</span><span class="tag level">Middle</span><span class="tag level">Pro</span><span class="tag part">рефлексія:підсумки</span></div>
+  <h2>Amazon review</h2>
+  <p>Кожен учасник залишає рев'ю на роботу в групі/проєкт/ідею, ніби описує продукт на Amazon: чи виправдались очікування, опишіть досвід, чи порадили б друзям.</p>
+  
+</template>
+<div class="tool-card" data-panel="panel-31" tabindex="0" role="button">
+  <div class="tool-tags"><span class="tag level">Beginner</span><span class="tag level">Middle</span><span class="tag level">Pro</span><span class="tag part">основна активність</span></div>
+  <div class="tool-name">У нас проблема</div>
+  <p class="tool-preview">1) Вигадати проблему й умови, за яких можливе рішення. 2) Поділити студентів рандомно на групи по 3–4. 3)…</p>
+  <span class="tool-toggle">Детальніше <span class="schevron">›</span></span>
+</div>
+<template id="panel-31">
+  <div class="panel-eyebrow"><span class="tag level">Beginner</span><span class="tag level">Middle</span><span class="tag level">Pro</span><span class="tag part">основна активність</span></div>
+  <h2>У нас проблема</h2>
+  <p>1) Вигадати проблему й умови, за яких можливе рішення. 2) Поділити студентів рандомно на групи по 3–4. 3) Презентувати можливі рішення й обговорити, як їх покращити.</p>
+  <p><strong>Наприклад:</strong> Як скоротити бюджет проєкту на 30%?</p>
+</template>
+<div class="tool-card" data-panel="panel-32" tabindex="0" role="button">
+  <div class="tool-tags"><span class="tag level">Beginner</span><span class="tag level">Middle</span><span class="tag part">основна активність</span><span class="tag part">інтенсив</span></div>
+  <div class="tool-name">Роби як великі / Роби як я / Copy-paste</div>
+  <p class="tool-preview">Задача — відтворити існуючу класну роботу (анімація, зображення, сайт чи його елемент, звук). Допомагає…</p>
+  <span class="tool-toggle">Детальніше <span class="schevron">›</span></span>
+</div>
+<template id="panel-32">
+  <div class="panel-eyebrow"><span class="tag level">Beginner</span><span class="tag level">Middle</span><span class="tag part">основна активність</span><span class="tag part">інтенсив</span></div>
+  <h2>Роби як великі / Роби як я / Copy-paste</h2>
+  <p>Задача — відтворити існуючу класну роботу (анімація, зображення, сайт чи його елемент, звук). Допомагає навчитись розбивати роботу на компоненти й аналізувати, чому вона класна.</p>
+  <p><strong>Наприклад:</strong> Як у музичній школі — послухати уривок і записати нотами.</p>
+</template>
+<div class="tool-card" data-panel="panel-33" tabindex="0" role="button">
+  <div class="tool-tags"><span class="tag level">Beginner</span><span class="tag level">Middle</span><span class="tag level">Pro</span><span class="tag part">основна активність</span><span class="tag part">інтенсив</span><span class="tag part">розігрів</span></div>
+  <div class="tool-name">Case study</div>
+  <p class="tool-preview">Аналіз існуючої роботи. Обираємо кейс (візуальний, продукт, бренд), шукаємо і сильні, і слабкі сторони,…</p>
+  <span class="tool-toggle">Детальніше <span class="schevron">›</span></span>
+</div>
+<template id="panel-33">
+  <div class="panel-eyebrow"><span class="tag level">Beginner</span><span class="tag level">Middle</span><span class="tag level">Pro</span><span class="tag part">основна активність</span><span class="tag part">інтенсив</span><span class="tag part">розігрів</span></div>
+  <h2>Case study</h2>
+  <p>Аналіз існуючої роботи. Обираємо кейс (візуальний, продукт, бренд), шукаємо і сильні, і слабкі сторони, розбиваємо на категорії — і будуємо на цьому задачу.</p>
+  <p><strong>Наприклад:</strong> Алгоритм, що з більшою ймовірністю передбачає рецидив злочину для чорношкірих — розібрати, чому так і які наслідки використання таких алгоритмів.</p>
+</template>
+<div class="tool-card" data-panel="panel-34" tabindex="0" role="button">
+  <div class="tool-tags"><span class="tag level">Beginner</span><span class="tag level">Middle</span><span class="tag level">Pro</span><span class="tag part">рефлексія:підсумки</span></div>
+  <div class="tool-name">Одним реченням</div>
+  <p class="tool-preview">Потрібно підсумувати одним реченням основні висновки з вивченого — ідеально в кінці заняття чи активності.</p>
+  <span class="tool-toggle">Детальніше <span class="schevron">›</span></span>
+</div>
+<template id="panel-34">
+  <div class="panel-eyebrow"><span class="tag level">Beginner</span><span class="tag level">Middle</span><span class="tag level">Pro</span><span class="tag part">рефлексія:підсумки</span></div>
+  <h2>Одним реченням</h2>
+  <p>Потрібно підсумувати одним реченням основні висновки з вивченого — ідеально в кінці заняття чи активності.</p>
+  <p><strong>Наприклад:</strong> What are the main takeaways?</p>
+</template>
+<div class="tool-card" data-panel="panel-35" tabindex="0" role="button">
+  <div class="tool-tags"><span class="tag level">Beginner</span><span class="tag part">основна активність</span></div>
+  <div class="tool-name">Демо-заняття</div>
+  <p class="tool-preview">Окремий формат вебінару, альтернатива звичному «нашаруванню» — раз на курс. Студенти обирають тему й…</p>
+  <span class="tool-toggle">Детальніше <span class="schevron">›</span></span>
+</div>
+<template id="panel-35">
+  <div class="panel-eyebrow"><span class="tag level">Beginner</span><span class="tag part">основна активність</span></div>
+  <h2>Демо-заняття</h2>
+  <p>Окремий формат вебінару, альтернатива звичному «нашаруванню» — раз на курс. Студенти обирають тему й обмеження, куратор виконує завдання наживо з шерингом екрана.</p>
+  <p><strong>Наприклад:</strong> Створення мобільного інтерфейсу для застосунку з правилами ПДР.</p>
+</template>
+<div class="tool-card" data-panel="panel-36" tabindex="0" role="button">
+  <div class="tool-tags"><span class="tag level">Beginner</span><span class="tag level">Middle</span><span class="tag level">Pro</span><span class="tag part">інтенсив</span><span class="tag part">основна активність</span></div>
+  <div class="tool-name">Бомбардування</div>
+  <p class="tool-preview">Завчасно готуємо 4–5 питань з короткими відповідями (емоджі в зумі для так/ні або Slack для кількох…</p>
+  <span class="tool-toggle">Детальніше <span class="schevron">›</span></span>
+</div>
+<template id="panel-36">
+  <div class="panel-eyebrow"><span class="tag level">Beginner</span><span class="tag level">Middle</span><span class="tag level">Pro</span><span class="tag part">інтенсив</span><span class="tag part">основна активність</span></div>
+  <h2>Бомбардування</h2>
+  <p>Завчасно готуємо 4–5 питань з короткими відповідями (емоджі в зумі для так/ні або Slack для кількох варіантів). Студенти обирають позицію й обґрунтовують після кожного голосування.</p>
+  
+</template>
+<div class="tool-card" data-panel="panel-37" tabindex="0" role="button">
+  <div class="tool-tags"><span class="tag level">Middle</span><span class="tag level">Pro</span><span class="tag part">розігрів</span><span class="tag part">інтенсив</span></div>
+  <div class="tool-name">Far transfer</div>
+  <p class="tool-preview">За допомогою нових знань/інструментів зробити щось концептуально інше, не дотичне до теми курсу.</p>
+  <span class="tool-toggle">Детальніше <span class="schevron">›</span></span>
+</div>
+<template id="panel-37">
+  <div class="panel-eyebrow"><span class="tag level">Middle</span><span class="tag level">Pro</span><span class="tag part">розігрів</span><span class="tag part">інтенсив</span></div>
+  <h2>Far transfer</h2>
+  <p>За допомогою нових знань/інструментів зробити щось концептуально інше, не дотичне до теми курсу.</p>
+  <p><strong>Наприклад:</strong> Використати нові метрики щоб покращити три речі у себе вдома.</p>
+</template>
+<div class="tool-card" data-panel="panel-38" tabindex="0" role="button">
+  <div class="tool-tags"><span class="tag level">Middle</span><span class="tag level">Pro</span><span class="tag part">основна активність</span></div>
+  <div class="tool-name">І/Але</div>
+  <p class="tool-preview">Перша людина презентує аргумент щодо теми. Кожен наступний або доповнює аргумент, почавши з «І», або…</p>
+  <span class="tool-toggle">Детальніше <span class="schevron">›</span></span>
+</div>
+<template id="panel-38">
+  <div class="panel-eyebrow"><span class="tag level">Middle</span><span class="tag level">Pro</span><span class="tag part">основна активність</span></div>
+  <h2>І/Але</h2>
+  <p>Перша людина презентує аргумент щодо теми. Кожен наступний або доповнює аргумент, почавши з «І», або презентує контрпозицію, почавши з «Але». Мета — охопити якомога більше студентів по черзі з відносно швидкими коментарями і допомогти швидко аналізувати проблему та формулювати аргументи й контраргументи.</p>
+  
+</template>
+<div class="tool-card" data-panel="panel-39" tabindex="0" role="button">
+  <div class="tool-tags"><span class="tag level">Middle</span><span class="tag level">Pro</span><span class="tag part">основна активність</span><span class="tag part">інтенсив</span></div>
+  <div class="tool-name">Баді</div>
+  <p class="tool-preview">Кожному студенту рандомно призначаємо людину, якій потрібно дати фідбек. Так студенти чують альтернативну…</p>
+  <span class="tool-toggle">Детальніше <span class="schevron">›</span></span>
+</div>
+<template id="panel-39">
+  <div class="panel-eyebrow"><span class="tag level">Middle</span><span class="tag level">Pro</span><span class="tag part">основна активність</span><span class="tag part">інтенсив</span></div>
+  <h2>Баді</h2>
+  <p>Кожному студенту рандомно призначаємо людину, якій потрібно дати фідбек. Так студенти чують альтернативну думку (яка може відрізнятись від думки ментора/куратора) і практикуються давати фідбек.</p>
+  <p><strong>Наприклад:</strong> Поділити по двоє в зум-кімнати та презентувати роботу/її частину, з якої хотілось би отримати фідбек.</p>
+</template>
+<div class="tool-card" data-panel="panel-40" tabindex="0" role="button">
+  <div class="tool-tags"><span class="tag level">Middle</span><span class="tag level">Pro</span><span class="tag part">1:1</span></div>
+  <div class="tool-name">Відкриті двері</div>
+  <p class="tool-preview">Додаткова година консультацій у будь-який день менторства — для обговорення особистого досвіду, питань по…</p>
+  <span class="tool-toggle">Детальніше <span class="schevron">›</span></span>
+</div>
+<template id="panel-40">
+  <div class="panel-eyebrow"><span class="tag level">Middle</span><span class="tag level">Pro</span><span class="tag part">1:1</span></div>
+  <h2>Відкриті двері</h2>
+  <p>Додаткова година консультацій у будь-який день менторства — для обговорення особистого досвіду, питань по курсу й домашкам. Відкрита одразу для декількох студентів.</p>
+  <p><strong>Наприклад:</strong> Обери одну годину на тиждень, забукай постійну кімнату в Google Meet, дай доступ студентам.</p>
+</template>
+<div class="tool-card" data-panel="panel-41" tabindex="0" role="button">
+  <div class="tool-tags"><span class="tag level">Middle</span><span class="tag level">Pro</span><span class="tag part">розігрів</span><span class="tag part">основна активність</span><span class="tag part">рефлексія:підсумки</span></div>
+  <div class="tool-name">Викликати до дошки</div>
+  <p class="tool-preview">Поставити питання і, не чекаючи ініціативи, викликати будь-кого. Стимулює уважність і залученість, бо в…</p>
+  <span class="tool-toggle">Детальніше <span class="schevron">›</span></span>
+</div>
+<template id="panel-41">
+  <div class="panel-eyebrow"><span class="tag level">Middle</span><span class="tag level">Pro</span><span class="tag part">розігрів</span><span class="tag part">основна активність</span><span class="tag part">рефлексія:підсумки</span></div>
+  <h2>Викликати до дошки</h2>
+  <p>Поставити питання і, не чекаючи ініціативи, викликати будь-кого. Стимулює уважність і залученість, бо в будь-який момент можуть викликати. Добре для залучення пасивних студентів.</p>
+  <p><strong>Наприклад:</strong> Або спочатку питання, потім звернутись до випадкового студента, або навпаки.</p>
+</template>
+<div class="tool-card" data-panel="panel-42" tabindex="0" role="button">
+  <div class="tool-tags"><span class="tag level">Middle</span><span class="tag level">Pro</span><span class="tag part">основна активність</span><span class="tag part">інтенсив</span></div>
+  <div class="tool-name">Growth Style</div>
+  <p class="tool-preview">Для дз обирається кейс, який потрібно розібрати. На вебінарі студент презентує аналіз, а всі інші мають…</p>
+  <span class="tool-toggle">Детальніше <span class="schevron">›</span></span>
+</div>
+<template id="panel-42">
+  <div class="panel-eyebrow"><span class="tag level">Middle</span><span class="tag level">Pro</span><span class="tag part">основна активність</span><span class="tag part">інтенсив</span></div>
+  <h2>Growth Style</h2>
+  <p>Для дз обирається кейс, який потрібно розібрати. На вебінарі студент презентує аналіз, а всі інші мають додати/запитати/відфідбечити.</p>
+  <p><strong>Наприклад:</strong> Схоже на case study, але ресерч і аналіз студенти виконують ДО заняття.</p>
+</template>
+<div class="tool-card" data-panel="panel-43" tabindex="0" role="button">
+  <div class="tool-tags"><span class="tag level">Middle</span><span class="tag level">Pro</span><span class="tag part">основна активність</span><span class="tag part">інтенсив</span></div>
+  <div class="tool-name">Стейкхолдер</div>
+  <p class="tool-preview">Розгляд кейсу з позиції різних учасників, дотичних до нього, щоб врахувати їхні потреби й інтереси.…</p>
+  <span class="tool-toggle">Детальніше <span class="schevron">›</span></span>
+</div>
+<template id="panel-43">
+  <div class="panel-eyebrow"><span class="tag level">Middle</span><span class="tag level">Pro</span><span class="tag part">основна активність</span><span class="tag part">інтенсив</span></div>
+  <h2>Стейкхолдер</h2>
+  <p>Розгляд кейсу з позиції різних учасників, дотичних до нього, щоб врахувати їхні потреби й інтереси. Варіація: куратор займає роль замовника чи недовірливого тімліда.</p>
+  <p><strong>Наприклад:</strong> При підготовці до курсової — проаналізувати потреби замовника; або поділити студентів на групи, кожній задати аналіз з погляду однієї сторони.</p>
+</template>
+<div class="tool-card" data-panel="panel-44" tabindex="0" role="button">
+  <div class="tool-tags"><span class="tag level">Middle</span><span class="tag level">Pro</span><span class="tag part">1:1</span><span class="tag part">рефлексія:підсумки</span></div>
+  <div class="tool-name">1:1</div>
+  <p class="tool-preview">Поділити півтори години на 10–15-хвилинні чекіни з кожним студентом. Проводити після великої здачі або…</p>
+  <span class="tool-toggle">Детальніше <span class="schevron">›</span></span>
+</div>
+<template id="panel-44">
+  <div class="panel-eyebrow"><span class="tag level">Middle</span><span class="tag level">Pro</span><span class="tag part">1:1</span><span class="tag part">рефлексія:підсумки</span></div>
+  <h2>1:1</h2>
+  <p>Поділити півтори години на 10–15-хвилинні чекіни з кожним студентом. Проводити після великої здачі або приблизно на середині курсу.</p>
+  <p><strong>Наприклад:</strong> За допомогою calendly.com або звичайної таблиці в Excel відкрити 15–20-хвилинні слоти для студентів.</p>
+</template>
+<div class="tool-card" data-panel="panel-45" tabindex="0" role="button">
+  <div class="tool-tags"><span class="tag level">Middle</span><span class="tag level">Pro</span><span class="tag part">інтенсив</span><span class="tag part">основна активність</span></div>
+  <div class="tool-name">Переконати експерта</div>
+  <p class="tool-preview">Студенти мають переконати куратора/ментора, що вивчене на курсі ефективне й доцільне. «Експерт» знає…</p>
+  <span class="tool-toggle">Детальніше <span class="schevron">›</span></span>
+</div>
+<template id="panel-45">
+  <div class="panel-eyebrow"><span class="tag level">Middle</span><span class="tag level">Pro</span><span class="tag part">інтенсив</span><span class="tag part">основна активність</span></div>
+  <h2>Переконати експерта</h2>
+  <p>Студенти мають переконати куратора/ментора, що вивчене на курсі ефективне й доцільне. «Експерт» знає недоліки й контраргументи — студенти глибше й критичніше ставляться до інформації з лекції.</p>
+  
+</template>
+<div class="tool-card" data-panel="panel-46" tabindex="0" role="button">
+  <div class="tool-tags"><span class="tag level">Middle</span><span class="tag level">Pro</span><span class="tag part">основна активність</span></div>
+  <div class="tool-name">Дебати</div>
+  <p class="tool-preview">1) Презентуємо проблему. 2) Ділимо студентів на дві групи. 3) Надсилаємо у різні зум-кімнати готувати…</p>
+  <span class="tool-toggle">Детальніше <span class="schevron">›</span></span>
+</div>
+<template id="panel-46">
+  <div class="panel-eyebrow"><span class="tag level">Middle</span><span class="tag level">Pro</span><span class="tag part">основна активність</span></div>
+  <h2>Дебати</h2>
+  <p>1) Презентуємо проблему. 2) Ділимо студентів на дві групи. 3) Надсилаємо у різні зум-кімнати готувати аргументи й контраргументи. 4) Всі повертаються й обговорюють. Ідеально для контроверсійних тем.</p>
+  <p><strong>Наприклад:</strong> Розподілити рандомно (тоді доведеться захищати чужу позицію) або через голосування за поглядами.</p>
+</template>
+</div>
+
+  </div>
+  <button class="next-chapter" data-goto="02-3">
+    <div class="lbl">Далі</div>
+    <div class="ttl">Шаблон презентацій</div>
+  </button>
+  <div class="author-box">
+    <div class="avatar">PI</div>
+    <div>
+      <div class="name">Продюсерська команда Projector Institute</div>
+      <div class="bio">Ця книга зібрана з бази знань кураторів — понад 10-річного досвіду роботи зі студентами, курсами та вебінарами.</div>
+    </div>
+  </div>
+</article>
+
+<article class="chapter-pane" id="page-02-3" hidden>
+  <button class="back-link" data-goto="toc">← Зміст книги</button>
+  <header class="chapter-head">
+    <div class="chapter-eyebrow">Розділ 2.3 — Вебінари</div>
+    <h1>Шаблон презентацій</h1>
+    <p class="subtitle">Keynote, Google Slides, Figma, PowerPoint</p>
+  </header>
+  <div class="chapter-body">
+    
+<p>Тут — шаблони презентацій у стилі Проджу. Сміливо використовуй їх для підготовки курсу чи окремих занять: вони створені з максимальним зануренням у потреби кураторів, щоб спростити процес підготовки до лекцій і вебінарів.</p>
+
+<div class="callout">
+  <span class="label">Важливо</span>
+  <p>Не передавай посилання на шаблони третім особам і не діліcь ними у відкритих пабліках.</p>
+</div>
+
+<p><strong><a href="https://drive.google.com/drive/folders/1refD9hOKcD_57v6bDvefLMJ9tZmGG_6-" target="_blank">Всі шаблони можна знайти тут →</a></strong></p>
+
+<p>Що є в наборі:</p>
+<ul>
+  <li>для Windows — PowerPoint;</li>
+  <li>для Mac — Keynote;</li>
+  <li>Google Slides (спершу потрібно продублювати собі);</li>
+  <li>презентація у Figma (завантаж файл і перетягни у свою відкриту фігму);</li>
+  <li>pdf-прев'ю-інструкція;</li>
+  <li>матеріали для користування — шрифт, лого.</li>
+</ul>
+
+<h2>Чому варто використовувати саме ці шаблони?</h2>
+<p>Вони створені, щоб:</p>
+<ol>
+  <li>покроково допомогти створити красиву презентацію;</li>
+  <li>заохочувати до форматів на кшталт адженди, тезового пояснення теми чи мемів;</li>
+  <li>дати типові слайди для готового використання.</li>
+</ol>
+
+<h2>Якщо готуєш презентацію для запису лекції</h2>
+<ol>
+  <li>Важливо віддавати презентацію з можливістю редагування — її обов'язково має вичитати наш коректор.</li>
+  <li>Віддавай презентацію мінімум за 2 дні до запису лекції, щоб її встигли вичитати.</li>
+</ol>
+
+<h2>Приклади реальних презентацій від кураторів</h2>
+<ul>
+  <li><a href="https://docs.google.com/presentation/d/1pb67jjKyUogOuBbr5lfEL6oILOG8ig-VJEEG6mV6VQg/edit" target="_blank">Цілі маркетингу. Digital Marketing.</a></li>
+  <li><a href="https://drive.google.com/file/d/1bkE76K7ypz1sHiNA_nj0kdG57aBeJOF-/view?usp=sharing" target="_blank">Презентація. Level Up. Graphic Design Medium.</a></li>
+</ul>
+
+  </div>
+  <button class="next-chapter" data-goto="02-4">
+    <div class="lbl">Далі</div>
+    <div class="ttl">Шаблон партисипативного вебінару в Notion</div>
+  </button>
+  <div class="author-box">
+    <div class="avatar">PI</div>
+    <div>
+      <div class="name">Продюсерська команда Projector Institute</div>
+      <div class="bio">Ця книга зібрана з бази знань кураторів — понад 10-річного досвіду роботи зі студентами, курсами та вебінарами.</div>
+    </div>
+  </div>
+</article>
+
+<article class="chapter-pane" id="page-02-4" hidden>
+  <button class="back-link" data-goto="toc">← Зміст книги</button>
+  <header class="chapter-head">
+    <div class="chapter-eyebrow">Розділ 2.4 — Вебінари</div>
+    <h1>Шаблон партисипативного вебінару в Notion</h1>
+    <p class="subtitle">Готовий план заняття за принципом нашарування</p>
+  </header>
+  <div class="chapter-body">
+    
+<p>Для максимальної ефективності вебінару я пропоную використовувати принцип «нашарювання» — вступ, розігрів (warm-up), основна 1–2 активності (з чи без інтенсиву) для пропрацювання нового матеріалу, обговорення, підведення підсумків (рефлексія).</p>
+
+<div class="callout">
+  <span class="label">🦹 До шаблонів</span>
+  <p>Додаю посилання на шаблони такого вебінару в Notion, які ти можеш продублювати і заповнити з власними ідеями для кожного блоку (справа зверху натисни три крапки — «Дублювати»).</p>
+  <p><a href="https://app.notion.com/p/12afab8c82b0819eb1b5c04ca53b4ea9?pvs=21" target="_blank">Шаблон вебінару — таблиця</a></p>
+  <p><a href="https://app.notion.com/p/12afab8c82b081659236d73e392991cf?pvs=21" target="_blank">Шаблон вебінару — сторінка</a></p>
+</div>
+
+<p class="note">Для конкретних вправ на кожен блок — дивись <a href="02-2-interaktyvy.html" data-goto="02-2">розділ 2.2 «Інтерактиви»</a>.</p>
+
+  </div>
+  <button class="next-chapter" data-goto="02-5">
+    <div class="lbl">Далі</div>
+    <div class="ttl">Як працювати з гостьовими лекторами?</div>
+  </button>
+  <div class="author-box">
+    <div class="avatar">PI</div>
+    <div>
+      <div class="name">Продюсерська команда Projector Institute</div>
+      <div class="bio">Ця книга зібрана з бази знань кураторів — понад 10-річного досвіду роботи зі студентами, курсами та вебінарами.</div>
+    </div>
+  </div>
+</article>
+
+<article class="chapter-pane" id="page-02-5" hidden>
+  <button class="back-link" data-goto="toc">← Зміст книги</button>
+  <header class="chapter-head">
+    <div class="chapter-eyebrow">Розділ 2.5 — Вебінари</div>
+    <h1>Як працювати з гостьовими лекторами?</h1>
+    <p class="subtitle">Урізноманітнюємо курс зовнішньою експертизою</p>
+  </header>
+  <div class="chapter-body">
+    
+<h2>Коли запрошувати гостя?</h2>
+<ul class="checklist">
+  <li>У цієї людини є вузька специфіка, дотична до курсу — вебінар з нею буде плюшкою.</li>
+  <li>Ця людина займається класними проєктами, в класній компанії, чи має класну історію — вебінар стане натхненням.</li>
+  <li>Ця людина просто must на твою думку.</li>
+</ul>
+
+<h2>Скільки гостьових лекторів допустимо?</h2>
+<p>Рахуємо від тривалості курсу: <strong>на 1 місяць курсу — 1 гостьовий лектор</strong>. Наприклад, на 3-місячний курс можна запросити 3 лекторів. Якщо є критична необхідність у +1 — обговори це з менеджером курсу.</p>
+
+<h2>Формати вебінарів з гостями</h2>
+<ul class="checklist">
+  <li>Воркшоп без домашнього завдання.</li>
+  <li>Воркшоп із домашнім завданням і фідбеком.</li>
+  <li>Q&amp;A.</li>
+</ul>
+<div class="callout">
+  <span class="label">Важливо</span>
+  <p>Воркшоп — це зовсім не лекція. Якщо гість розкриває нову тему, краще робити це у форматі інтерактиву: з обговореннями, практичними завданнями і роботою в групах.</p>
+</div>
+<p>Куратор сам відповідає за підготовку гостя. Відправ йому <a href="https://app.notion.com/p/81f8b228f044417aa188e82de76e1c66?pvs=21" target="_blank">Гайд запрошеного гостя</a>. Зазвичай недостатньо просто узгодити тему — важливо, щоб гість розумів специфіку курсу й загальний вайб. Іноді варто пробрифувати гостя, запропонувати кілька робочих форматів воркшопу і завчасно переглянути план, щоб пересвідчитись, що він органічно вписується в арку курсу.</p>
+
+<h2>Навіщо запрошувати гостя?</h2>
+<ul>
+  <li>Студентам корисно побачити big picture — чим можна займатись у сфері.</li>
+  <li>Це часто допомагає з мотивацією — стає зрозуміліше, навіщо так багато працюєш.</li>
+  <li>Додатковий фідбек по роботі студентів, особливо від людини з іншим баченням.</li>
+  <li>Куратори не універсальні — і це не має обмежувати досвід студента. Не соромся запрошувати експертів у темах, де сам почуваєшся невпевнено.</li>
+</ul>
+
+<h2>Де знайти гостей?</h2>
+<p>Це можуть бути твої знайомі чи колеги. Якщо маєш на думці конкретну тему, але не знаєш кого запросити — звернись до Projector: можливо, команда знає когось у цій сфері.</p>
+
+<h2>На яких умовах ми запрошуємо гостей?</h2>
+<p>Залежно від специфіки гостя передбачений різний гонорар — деталі уточнюй у менеджера курсу.</p>
+
+  </div>
+  <button class="next-chapter" data-goto="03">
+    <div class="lbl">Далі</div>
+    <div class="ttl">Фідбеки та робота зі студентами</div>
+  </button>
+  <div class="author-box">
+    <div class="avatar">PI</div>
+    <div>
+      <div class="name">Продюсерська команда Projector Institute</div>
+      <div class="bio">Ця книга зібрана з бази знань кураторів — понад 10-річного досвіду роботи зі студентами, курсами та вебінарами.</div>
+    </div>
+  </div>
+</article>
+
+<article class="chapter-pane" id="page-03" hidden>
+  <button class="back-link" data-goto="toc">← Зміст книги</button>
+  <header class="chapter-head">
+    <div class="chapter-eyebrow">Розділ 3</div>
+    <h1>Фідбеки та робота зі студентами</h1>
+    <p class="subtitle">Про комунікацію, підтримку та іншу взаємодію зі студентами</p>
+  </header>
+  <div class="chapter-body">
+    
+<p>Курс тримається на комунікації. Тут — усе про те, як говорити зі студентами в звичайні дні і в кризові, як побудувати групову роботу й активність на курсі, як організувати рефлексію, довести студента до результату в курсовому проєкті та дати фідбек, який справді допомагає рости.</p>
+<ul class="hub-list"><li><a href="#" data-goto="03-1"><span class="num">03-1</span><span class="title">Все про фідбеки</span><span class="arrow">→</span></a></li>
+<li><a href="#" data-goto="03-2"><span class="num">03-2</span><span class="title">Як працювати з груповою роботою?</span><span class="arrow">→</span></a></li>
+<li><a href="#" data-goto="03-3"><span class="num">03-3</span><span class="title">Як підтримувати активність на курсі?</span><span class="arrow">→</span></a></li>
+<li><a href="#" data-goto="03-4"><span class="num">03-4</span><span class="title">Як організувати рефлексію?</span><span class="arrow">→</span></a></li>
+<li><a href="#" data-goto="03-5"><span class="num">03-5</span><span class="title">Як працювати з курсовими проєктами (та замовниками)?</span><span class="arrow">→</span></a></li>
+<li><a href="#" data-goto="03-6"><span class="num">03-6</span><span class="title">Кризова комунікація</span><span class="arrow">→</span></a></li>
+</ul>
+  </div>
+  <button class="next-chapter" data-goto="03-1">
+    <div class="lbl">Далі</div>
+    <div class="ttl">Все про фідбеки</div>
+  </button>
+  <div class="author-box">
+    <div class="avatar">PI</div>
+    <div>
+      <div class="name">Продюсерська команда Projector Institute</div>
+      <div class="bio">Ця книга зібрана з бази знань кураторів — понад 10-річного досвіду роботи зі студентами, курсами та вебінарами.</div>
+    </div>
+  </div>
+</article>
+
+<article class="chapter-pane" id="page-03-1" hidden>
+  <button class="back-link" data-goto="toc">← Зміст книги</button>
+  <header class="chapter-head">
+    <div class="chapter-eyebrow">Розділ 3.1 — Фідбеки та робота зі студентами</div>
+    <h1>Все про фідбеки</h1>
+    <p class="subtitle">Головне завдання куратора — індивідуальний прогрес кожного студента</p>
+  </header>
+  <div class="chapter-body">
+    
+<div class="callout">
+  <span class="label">Ціль фідбеку</span>
+  <p>Фідбек допомагає студентам рухатися від початкового рівня знань і навичок (точка А) до більш просунутого рівня (точка В). Ключове завдання куратора — підтримувати індивідуальний прогрес кожного студента.</p>
+</div>
+
+<h2>Як правильно давати фідбек?</h2>
+<ol>
+  <li><strong>Аргументуй.</strong> Кожна порада має бути підкріплена конкретними прикладами, теорією або контекстом. Не давай готових відповідей — став питання, які допоможуть студенту самому прийти до рішення.</li>
+  <li><strong>Фокусуйся на індивідуальному прогресі.</strong> Не порівнюй студентів між собою — у кожного свій темп.</li>
+  <li><strong>Зараховуй ітераціями.</strong> Спочатку звертай увагу на грубі помилки, потім переходь до деталей. Це також не дає фідбеку розростатись до нескінченності.</li>
+  <li><strong>Додавай короткий загальний підсумок</strong> із чіткими наступними кроками — особливо важливо для відеофідбеку.</li>
+  <li><strong>Не забувай хвалити</strong> — не тільки за зусилля, а й за конкретні досягнення.</li>
+  <li><strong>Говори зрозуміло</strong>, уникай сленгу, незрозумілого новачкам.</li>
+</ol>
+
+<h2>Формат та організація</h2>
+<ul>
+  <li><strong>Надавай фідбек вчасно</strong> — студент має отримати відповідь протягом доби після здачі чи запиту.</li>
+  <li><strong>Повідом про робочі години й вихідні.</strong> Я раджу не брати вихідними одразу суботу й неділю — саме в ці дні студенти найактивніше працюють над домашками.</li>
+  <li><strong>Формат фідбеку:</strong> запитання замість готових відповідей («чому ти обрав саме такий підхід?»); відеофідбек через вбудований у Educate Me Loom; загальні патерни помилок винось на вебінари чи в Slack; заохочуй точкові питання в канал #Questions; проводь office hours з відкритим посиланням у Zoom.</li>
+</ul>
+
+<h2>Чому ми не ставимо оцінки?</h2>
+<ul>
+  <li>Оцінки не передбачають можливості покращити роботу, а мета — максимальний прогрес кожного студента.</li>
+  <li>Вони можуть демотивувати, зосереджуючи увагу на числі, а не на змісті фідбеку.</li>
+  <li>Кожна робота складається з багатьох складових, які складно звести в одну цифру.</li>
+  <li>Студенти з різним бекграундом мають різну дельту прогресу — важливо підтримувати індивідуальний розвиток, а не рівняти всіх до одного стандарту.</li>
+</ul>
+
+<h2>Що робити, якщо студент одразу демонструє гарний результат?</h2>
+<p>Коли у студента стабільно високий результат, обсяг роботи куратора не зменшується — змінюється її фокус. Роль зміщується з перевірки на наставництво: ти допомагаєш студенту зрозуміти, чому його рішення працює і як воно поводитиметься в інших умовах. Хороший результат — це не фінальна точка, а вхід у глибший рівень.</p>
+
+<h3>Дослідження мислення через запитання</h3>
+<p>Використовуй питання не для перевірки, а для розвитку мислення:</p>
+<div class="callout"><p><em>Чому ти обрав саме цей підхід? Які альтернативи розглядав? У яких умовах це рішення може не спрацювати? Як би ти адаптував це під інший кейс?</em></p></div>
+<p>Якщо студент не може пояснити свої дії, навіть коли зробив усе правильно — це сигнал, що знання ще не закріплене.</p>
+
+<h3>Легке когнітивне напруження</h3>
+<p>Без нього розвитку не відбувається: якщо студенту постійно комфортно, він закріплює поточний рівень, але не виходить за нього. Варіанти: змінити умови задачі («що зміниться, якщо вхідні дані неповні?»), запропонувати масштабування («як це працюватиме, якщо таких кейсів стане значно більше?»), пошук альтернатив, робота з обмеженими ресурсами, рефлексія.</p>
+
+<h3>Моделювання ситуацій</h3>
+<p>Пропонуй уявити, як рішення студента працюватиме в різних умовах: інша цільова аудиторія, новий ринок, менший чи більший бюджет, зміна позиціонування. Це формує гнучкість і показує, що рішення — не статична правильна відповідь, а інструмент, який має адаптуватись.</p>
+<p class="note">Важливо зберігати баланс: ускладнення має відчуватись як запрошення до дослідження, а не критика. Краще дати один точний вектор для роздумів, ніж перевантажити питаннями.</p>
+
+<h3>Позитивний фідбек</h3>
+<p>Недостатньо сказати, що все добре — проговорюй, що саме виходить: сильна структура, логічні переходи, вдалий вибір підходу. Водночас звертай увагу на прихований ризик: іноді «стабільно добре» означає відсутність ризику й студент не виходить за межі очікуваного. Тоді м'яко підштовхни до дослідження: «де тобі було складно?», «що б ти спробував, якби було більше часу?»</p>
+
+<p>Структура ефективного фідбеку в такій ситуації:</p>
+<ol>
+  <li>коротко підсвітити сильні сторони з конкретикою;</li>
+  <li>дати 1–2 напрямки для розвитку;</li>
+  <li>задати вектор наступного кроку чи експерименту.</li>
+</ol>
+<p>Коли у студента все добре, фідбек не зменшується — він стає глибшим. Ти допомагаєш перейти від «правильно виконую» до «розумію, чому це працює, де межі цього рішення і як зробити його сильнішим у різних умовах». Саме тут починається справжнє навчання.</p>
+
+  </div>
+  <button class="next-chapter" data-goto="03-2">
+    <div class="lbl">Далі</div>
+    <div class="ttl">Як працювати з груповою роботою?</div>
+  </button>
+  <div class="author-box">
+    <div class="avatar">PI</div>
+    <div>
+      <div class="name">Продюсерська команда Projector Institute</div>
+      <div class="bio">Ця книга зібрана з бази знань кураторів — понад 10-річного досвіду роботи зі студентами, курсами та вебінарами.</div>
+    </div>
+  </div>
+</article>
+
+<article class="chapter-pane" id="page-03-2" hidden>
+  <button class="back-link" data-goto="toc">← Зміст книги</button>
+  <header class="chapter-head">
+    <div class="chapter-eyebrow">Розділ 3.2 — Фідбеки та робота зі студентами</div>
+    <h1>Як працювати з груповою роботою?</h1>
+    <p class="subtitle">Короткострокові завдання і довгострокові проєкти — це різні ігри</p>
+  </header>
+  <div class="chapter-body">
+    
+<p>Одразу відокремимо два типи взаємодії в групі: <strong>короткострокову роботу над завданням</strong> та <strong>довгострокову роботу над проєктом</strong>.</p>
+
+<div class="two-col">
+  <div>
+    <h4>Short-term</h4>
+    <ul>
+      <li>використовується на вебінарах або поодиноких домашках</li>
+      <li>групи формуються рандомно і щоразу змінюються</li>
+      <li>результат не впливає на отримання сертифіката</li>
+    </ul>
+  </div>
+  <div>
+    <h4>Long-term</h4>
+    <ul>
+      <li>використовується в проєктах і курсових</li>
+      <li>групи формуються на весь період проєкту, часто з урахуванням навичок</li>
+      <li>результат впливає на успіх на курсі</li>
+    </ul>
+  </div>
+</div>
+
+<p><strong>Long-term варто обирати</strong>, якщо індустрія передбачає багато командної роботи, якщо на курсі декілька великих проєктів — один можна сміливо робити груповим, або якщо в тебе вже багато досвіду роботи з групами.</p>
+
+<p class="note"><a href="https://support.zoom.us/hc/en-us/articles/206476093-Enabling-breakout-rooms" target="_blank">Breakout rooms in Zoom</a> — коротка інструкція від самого Zoom про те, як користуватись цією фічею для поділу на групи на вебінарі.</p>
+
+<h2>Як організувати довгострокову роботу в групі</h2>
+
+<div class="callout">
+  <span class="label">Приклад: Graphic Design Medium</span>
+  <p>Повний опис рекомендацій щодо організації групової роботи над курсовим на курсі Graphic Design Medium — розподіл студентів по групах, організація процесу, розподіл ролей на кожному етапі (дослідження, генерація концептів, драфти, оформлення кейсу) і що робити, якщо хтось із команди відпадає в процесі роботи: <a href="https://prjctr.notion.site/_Graphic-Design-Medium-3c9fab8c82b0808abd75f58baf962bdc?source=copy_link" target="_blank">детальніше →</a></p>
+</div>
+
+<h3>1. Розподіл студентів</h3>
+<p>Чіткого правила немає, але ділити студентів має саме куратор. Варіанти підходу:</p>
+<ul>
+  <li><strong>За лідерськими якостями</strong> — лідерам легко працювати разом за рахунок схожого темпераменту, але забагато ініціативи в одній групі може призвести до «вибухів»; в різних групах вони стануть рушіями прогресу — головне, щоб не брали все на себе.</li>
+  <li><strong>За навичками</strong> — різноманіття навичок дає групі легше розподілити таски й стає майданчиком для нетворкінгу.</li>
+  <li><strong>За робочим графіком</strong> — молодий батько, людина з пізнім графіком і хтось з іншим часовим поясом навряд знайдуть спільний час.</li>
+  <li><strong>Рандомно</strong> — коли групи доводиться часто змінювати і немає часу щоразу враховувати всі фактори.</li>
+  <li><strong>З урахуванням (не)бажань студентів</strong> — можна попросити кожного назвати людину, з якою вони точно не хочуть працювати, і врахувати пасивних студентів, які не братимуть участі взагалі.</li>
+</ul>
+
+<h3>2. Формулювання задачі</h3>
+<p>Задача кожної команди має бути чітко окресленою, з очевидним розподілом ролей або метою першої зустрічі — розподілити обов'язки самостійно.</p>
+<div class="callout">
+  <span class="label">Невдалі кейси для групової роботи</span>
+  <p>Задачі маленького обсягу — не всім вистачає тасків. Задачі з розмитими ролями — студенти самі мають вигадувати собі завдання. Задачі з єдиним фінальним дедлайном без проміжкових чекінів — група губиться і нерівномірно витрачає час на етапи.</p>
+</div>
+
+<h3>3. Укладання договору</h3>
+<p>Кожна група складає власні правила роботи — це займе одну зустріч, але зекономить багато часу в майбутньому:</p>
+<ul class="checklist">
+  <li>Перше спільне завдання — обрати назву команди.</li>
+  <li>Розподілити організаційні ролі: хто на зв'язку з куратором, хто стежить за дедлайнами, хто конспектує зустрічі.</li>
+  <li>Розподілити ролі у роботі над проєктом, враховуючи сильні сторони кожного.</li>
+  <li>Обговорити зручний формат і частоту спілкування.</li>
+  <li>Обрати людину, що ставитиме крапку у спірних питаннях.</li>
+  <li>Спільно обрати мету команди — не обов'язково «виграти в замовника», можна «спробувати нову роль» чи «провести весело час».</li>
+</ul>
+<p>Якщо у студентів немає можливості зустрічатись синхронно — працюйте асинхронно: розподіліть таски з дедлайном і використовуйте треди в Slack для фідбеку й питань.</p>
+
+<h3>4. Що варто пам'ятати</h3>
+<p>Групова робота — це в першу чергу робота з довірою: довірою викладачу і довірою групі. Дай студентам попрацювати разом ще на вебінарах, перш ніж занурювати в спільний проєкт. Якась із груп обов'язково пересвариться — це нормальна частина процесу компромісів, і варто чесно про це попереджати. Також варто одразу сказати студентам, що наприкінці роботи вони оцінюватимуть одне одного — це додає рівень відповідальності.</p>
+
+<h2>Підведення підсумків</h2>
+<p><strong>Груповий фідбек.</strong> Крім захисту проєкту, важливо провести вебінар-рефлексію за форматом «I like / I wish / I wonder»:</p>
+<ul>
+  <li><strong>I like</strong> — заохочує звернути увагу на те, що склалось.</li>
+  <li><strong>I wish</strong> — можливість поділитись тим, що хотілося б змінити.</li>
+  <li><strong>I wonder</strong> — «що якби» питання, що лишились без відповіді.</li>
+</ul>
+<p><strong>Індивідуальний фідбек (peer-assessment).</strong> Письмовий анонімний фідбек кожного учасника групи допомагає студенту побачити патерни і власну цінність у команді, а куратору — тверезо оцінити вклад кожного. Шаблон форми (потребує кастомізації під конкретний курс — менеджер допоможе): <a href="https://tally.so/r/3jaGLE" target="_blank">Tally</a> · <a href="https://forms.gle/2BgFabEmSDhKq6hv5" target="_blank">Google Form</a></p>
+
+  </div>
+  <button class="next-chapter" data-goto="03-3">
+    <div class="lbl">Далі</div>
+    <div class="ttl">Як підтримувати активність на курсі?</div>
+  </button>
+  <div class="author-box">
+    <div class="avatar">PI</div>
+    <div>
+      <div class="name">Продюсерська команда Projector Institute</div>
+      <div class="bio">Ця книга зібрана з бази знань кураторів — понад 10-річного досвіду роботи зі студентами, курсами та вебінарами.</div>
+    </div>
+  </div>
+</article>
+
+<article class="chapter-pane" id="page-03-3" hidden>
+  <button class="back-link" data-goto="toc">← Зміст книги</button>
+  <header class="chapter-head">
+    <div class="chapter-eyebrow">Розділ 3.3 — Фідбеки та робота зі студентами</div>
+    <h1>Як підтримувати активність на курсі?</h1>
+    <p class="subtitle">Активність корелює з успішним проходженням курсу</p>
+  </header>
+  <div class="chapter-body">
+    
+<div class="callout">
+  <p>Чим активніше студенти залучені в обговорення на вебінарах і поза ними, тим вірогідніше вони надсилатимуть домашки і робитимуть курсовий проєкт.</p>
+</div>
+
+<h2>1. Залучай до дискусії</h2>
+<p>Проаналізуй, як саме ти формулюєш задачі для студентів — питання варто ставити такі, що залучають до дискусії, як на вебінарах, так і в Slack.</p>
+
+<h2>2. Створюй можливість нетворкінгу</h2>
+<p>Круто, коли студенти знають одне одного і залишаються на зв'язку після курсу:</p>
+<ul>
+  <li>групова робота — чудова можливість познайомитись ближче;</li>
+  <li>неформальна онлайн-зустріч поза розкладом вебінарів;</li>
+  <li>іноді групи навіть зустрічаються офлайн;</li>
+  <li>смол-толк на початку вебінарів — як справи, який настрій.</li>
+</ul>
+
+<h2>3. Придумай «фішку» для свого курсу</h2>
+<p>Створи власний щотижневий ритуал — щось, що формує відчуття спільноти. Приклади від кураторів: картинка-настрій на бекграунді в Zoom; вебінар починається з цитати по темі; відео чи зображення-натяк, і студенти вгадують тему заняття.</p>
+
+<h2>4. Використовуй Slack</h2>
+<ul>
+  <li><strong>#Homework</strong> — ділитись зарахованими домашками, студенти реагують і надихаються прикладами одне одного.</li>
+  <li><strong>#Inspirations</strong> — кейси, що сподобались студентам; тренування «надивленості». Можна ввести рубрику «інспірейшин тижня» на задану тему.</li>
+  <li><strong>#Questions</strong> — точкові питання одразу в канал, а не в особисті: хтось зі студентів може відповісти швидше за тебе.</li>
+  <li><strong>#Pain</strong> — місце понити разом, особливо ефективно для курсів із софт-скілами.</li>
+  <li><strong>#Library</strong> — місце для додаткових матеріалів.</li>
+</ul>
+
+<h2>5. Залучай студентів у процес навчання одне одного</h2>
+<p>Найкраще працює на рівнях middle і pro. Спробуй практику фідбеку студентів одне одному на домашки — вона не замінює фідбек куратора, а доповнює його. Або запропонуй разом вести «базу знань» курсу з поширеними питаннями й відповідями.</p>
+
+<h2>6. Дай можливість відпочити</h2>
+<p>На pro-курсах іноді найкраще, що можна зробити — дати тиждень перерви без нових задач. Але це не означає тиждень без зв'язку чи фідбеку.</p>
+
+<h2>7. Перевіряй середню «температуру»</h2>
+<ul>
+  <li>15-хвилинні зідзвони з кожним студентом замість регулярного вебінару — щоб побачити загальну картину.</li>
+  <li>Нерегулярні зідзвони з більш пасивними студентами.</li>
+  <li>Відкриті office hours — година на тиждень, коли будь-хто може прийти з питаннями.</li>
+</ul>
+
+<h2>Додаткові матеріали</h2>
+<p>Вони залучають студентів через нестандартні формати, дають привід повернутись до курсу після завершення і допомагають краще пізнати тебе через твої вподобання.</p>
+<div class="two-col">
+  <div>
+    <ul>
+      <li>матеріали, що підкріплюють лекцію (бібліографія)</li>
+      <li>дослідження, статті, книжки з анотацією «навіщо / як використати»</li>
+      <li>підбірка профільних медіа, ТГ-каналів, спільнот</li>
+    </ul>
+  </div>
+  <div>
+    <ul>
+      <li>презентація і конспект лекції</li>
+      <li>відеолекції з бібліотеки на дотичну тему</li>
+      <li>публікації самого куратора чи ментора</li>
+      <li>художня й документальна література, фільми</li>
+      <li>тести й ігри за тематикою курсу</li>
+    </ul>
+  </div>
+</div>
+
+  </div>
+  <button class="next-chapter" data-goto="03-4">
+    <div class="lbl">Далі</div>
+    <div class="ttl">Як організувати рефлексію?</div>
+  </button>
+  <div class="author-box">
+    <div class="avatar">PI</div>
+    <div>
+      <div class="name">Продюсерська команда Projector Institute</div>
+      <div class="bio">Ця книга зібрана з бази знань кураторів — понад 10-річного досвіду роботи зі студентами, курсами та вебінарами.</div>
+    </div>
+  </div>
+</article>
+
+<article class="chapter-pane" id="page-03-4" hidden>
+  <button class="back-link" data-goto="toc">← Зміст книги</button>
+  <header class="chapter-head">
+    <div class="chapter-eyebrow">Розділ 3.4 — Фідбеки та робота зі студентами</div>
+    <h1>Як організувати рефлексію?</h1>
+    <p class="subtitle">Підведення підсумків як частина навчального процесу</p>
+  </header>
+  <div class="chapter-body">
+    
+<h2>Що таке рефлексія?</h2>
+<p>Коротко — це підведення підсумків: ти озираєшся назад, аби оцінити власний розвиток, прогрес і зміни за певний проміжок часу. Рефлексія є невід'ємною частиною навчання, проте за відсутності культури рефлексувати як такої, саме куратор має ініціювати цей процес.</p>
+
+<div class="callout">
+  <span class="label">Пам'ятай</span>
+  <p>Головне правило успішної рефлексії — атмосфера безпеки й довіри на курсі. Якщо попросити студентів зненацька поділитись переживаннями, вони можуть не почуватись достатньо комфортно, щоб сказати, що дійсно думають — тож питай думку студентів протягом усього курсу, не засуджуй ідеї і підтримуй чесність.</p>
+</div>
+
+<h2>Як організувати рефлексію?</h2>
+<p>Найтиповіший формат — кожному студенту висловити: що пройшло добре, що хотілося б змінити, що зробили б інакше наступного разу. Іноді вистачить 15–20 хвилин на початку вебінару, іноді варто виділити окремий вебінар на обговорення вражень.</p>
+<p class="note">Готовий інструмент для проведення ретро: <a href="https://easyretro.io/" target="_blank">easyretro.io</a> · <a href="https://vimeo.com/805945581/c85ff152c0" target="_blank">відео-інструкція, як ним користуватись</a></p>
+
+<h2>Коли підбивати підсумки?</h2>
+<ul>
+  <li><strong>У кінці певного етапу</strong> — велика домашка, групова робота, перший місяць — виділи час на початку вебінару.</li>
+  <li><strong>У кінці курсу</strong> — момент усвідомлення росту кожного студента й групи в цілому, а також нагода отримати фідбек про курс і твою роботу.</li>
+  <li><strong>При загальній втомі й low point на курсі</strong> — проговорення загальної картини нагадує студентам, навіщо вони це роблять, і що вони отримають на виході.</li>
+</ul>
+
+<div class="callout">
+  <span class="label">Формат: факап-івнінг</span>
+  <p>Увесь вебінар присвячений обговоренню фейлів на курсі: поганим домашкам, сирим проєктам, невдалим рішенням на початку курсу — порівняно з нинішньою якістю. Кожен презентує свої факапи сам.</p>
+</div>
+
+<h2>Як оцінити, чи справді студент підбив підсумки?</h2>
+<p>Успішна рефлексія — це спроможність людини робити висновки щодо власної дії або бездіяльності, а головне — мати відповідь на питання: «Як ці висновки вплинуть на рішення студента на наступному проєкті (на курсі, на роботі, у навчанні)?»</p>
+
+  </div>
+  <button class="next-chapter" data-goto="03-5">
+    <div class="lbl">Далі</div>
+    <div class="ttl">Як працювати з курсовими проєктами (та замовниками)?</div>
+  </button>
+  <div class="author-box">
+    <div class="avatar">PI</div>
+    <div>
+      <div class="name">Продюсерська команда Projector Institute</div>
+      <div class="bio">Ця книга зібрана з бази знань кураторів — понад 10-річного досвіду роботи зі студентами, курсами та вебінарами.</div>
+    </div>
+  </div>
+</article>
+
+<article class="chapter-pane" id="page-03-5" hidden>
+  <button class="back-link" data-goto="toc">← Зміст книги</button>
+  <header class="chapter-head">
+    <div class="chapter-eyebrow">Розділ 3.5 — Фідбеки та робота зі студентами</div>
+    <h1>Як працювати з курсовими проєктами (та замовниками)?</h1>
+    <p class="subtitle">Найважливіша частина практики кожного курсу Projector</p>
+  </header>
+  <div class="chapter-body">
+    
+<p>На відміну від коротких і точкових домашніх завдань, курсовий проєкт дозволяє студентам комплексно застосувати знання, отримані впродовж навчання. Коротко: студенти отримують реальні або штучні кейси, працюють над ними 1–4 тижні з фідбеком куратора і презентують напрацювання замовнику або куратору.</p>
+
+<details class="toggle-h2" open>
+<summary>Курсовий проєкт із замовником</summary>
+
+<div class="callout">
+  <p>На більшості курсів Projector курсові проєкти є реальними кейсами з замовниками та живим фідбеком — і ми цим пишаємось. Ніщо не навчить студентів працювати з робочими задачами краще, ніж реальний кейс: реальні обмеження в бюджеті й ресурсах, фідбек замовника, змагання з іншими студентами за те, чиє рішення імплементують.</p>
+</div>
+
+<h3>Хто створює курсовий проєкт і шукає замовника?</h3>
+<p>Проєкт створюється на етапі розробки програми курсу її автором — з урахуванням рівня студентів (індивідуально чи в командах). Замовника шукає partnership-менеджер Projector через мережу контактів.</p>
+<p>Куратор/ка в свою чергу також може запропонувати кейс на курсову. Це може бути проєкт з твоєї роботи або класна компанія/агенція/NGO, з якими був досвід роботи раніше або маєш теплі контакти.</p>
+<p><em>Якщо до тебе звернулись з проєктом або ти маєш когось на думці — пиши partnership менеджеру, ми готові співпрацювати! Писати слід не пізніше ніж за місяць до старту роботи над проєктом.</em></p>
+<p>Куратор затверджує замовника й задачу, щоб вони розкривали навички студентів, не перевищуючи їхній рівень.</p>
+
+<h3>Як зрозуміти підходить кейс чи ні?</h3>
+<p>Почни з кінця — з того, чому студенти мають навчитись завдяки роботі над проєктом:</p>
+<ul class="checklist">
+  <li>Чи допоможе цей проєкт прокачати навички, отримані на курсі?</li>
+  <li>Чи відповідає він рівню студентів?</li>
+  <li>Чи реалістично виконати його в заданий час?</li>
+  <li>Чи цікаво з ним працювати? — важливо для мотивації.</li>
+</ul>
+<p>Якщо задача замовника розмита або занадто об'ємна, куратор допомагає підлаштувати запит під кейс, який студенти можуть взяти в роботу.</p>
+
+<h3>Роль куратора у роботі з кейсом</h3>
+<p><strong>Куратор — оунер процесу:</strong> узгоджує проєкт із замовником; допомагає студентам розібратись у задачі й організувати роботу; дає проміжковий фідбек; готує студентів до фінального захисту.</p>
+
+<h3>Комунікація</h3>
+<p>Партнершип-менеджер створює чат «замовник + куратор» для узгодження деталей. Для звʼязку студентів із замовником є кілька варіантів: куратор збирає питання і передає їх письмово (наприклад, у Google Doc); спільний чат для уточнень; окрема онлайн-зустріч або запрошення замовника на вебінар.</p>
+
+<h3>Брифінг</h3>
+<p>Брифінг — вебінар, на якому замовник презентує задачу, а студенти ставлять уточнюючі питання.</p>
+<div class="two-col">
+  <div>
+    <h4>До брифінгу</h4>
+    <p>Дай студентам доступ до брифу заздалегідь, щоб підготували питання.</p>
+  </div>
+  <div>
+    <h4>Після брифінгу</h4>
+    <p>Надішли всі матеріали й доступи, потрібні для виконання курсового.</p>
+  </div>
+</div>
+<div class="callout">
+  <p>Приклад брифінгу за посиланням:</p>
+  <div class="video-embed"><iframe src="https://player.vimeo.com/video/804052477?h=bef36dede1" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div>
+</div>
+
+<h3>Організація роботи над проєктом</h3>
+<ul>
+  <li><strong>Правило перше</strong> — розбий великий проєкт на складові з внутрішніми дедлайнами.</li>
+  <li><strong>Правило друге</strong> — слідкуй за прогресом: обговорення проблем на вебінарі, чіткі проміжкові дедлайни, фідбек у Slack, нагадування тим, хто давно нічого не надсилав.</li>
+  <li><strong>Правило третє</strong> — передзахист кейсу: репетиція, яка робить результат помітно сильнішим — студенти готуються до неї як до справжнього захисту, звертають увагу на презентацію, а куратор може «профільтрувати» роботи перед показом замовнику.</li>
+</ul>
+<p class="note">Якщо кейс передбачає роботу в групах — почитай <a href="03-2-grupova-robota.html" data-goto="03-2">розділ 3.2 «Як працювати з груповою роботою?»</a> цієї книги.</p>
+
+<h3>Захист кейсу</h3>
+<p>Фінальний етап — захист перед замовником. Куратор модерує процес і стежить за таймінгом; по факту захисту замовник і куратор дають фідбек кожній групі. Іноді куратор обирає «переможця», чию роботу готовий імплементувати — це додає елемент змагання. Клієнт може вільно розпоряджатись отриманими ідеями, окрім видавання їх за власні чи продажу третім сторонам; робота студентів для замовника безкоштовна, хоча замовники іноді самі ініціюють подарунки.</p>
+
+<div class="note">Напередодні захисту слід нагадати замовнику про цю зустріч і дати коротке оверв'ю як буде проходити зустріч. Я підготував для вас шаблон такого листа з нагадуванням, можете сміливо ним користуватись — <a href="https://prjctr.notion.site/2296a2a4f0e749b8ae4cccbd246fe0a2?pvs=74" target="_blank">шаблон листа замовнику →</a></div>
+
+<div class="callout">
+  <span class="label">🔥 Приклад захисту кейсів — Product Design course</span>
+  <div class="video-embed"><iframe src="https://player.vimeo.com/video/740501530?h=319fbd40cb" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div>
+  <p><strong>Таймкоди:</strong></p>
+  <ul>
+    <li>05:20–09:40 — інтро формату</li>
+    <li>09:40–1:45:45 — презентації студентів (24:28, 44:10, 1:08:50 — запитання від замовника)</li>
+    <li>1:58:00 — замовник обирає переможця і дає фідбек усім групам</li>
+    <li>2:33:00 — куратори дають фідбек студентам</li>
+  </ul>
+</div>
+
+<h3>Чек-лист куратора: курсовий проєкт із замовником</h3>
+<ul class="checklist">
+  <li>Зідзвонитись із замовником щодо старту роботи, узгодити завдання й доступи для студентів.</li>
+  <li>Підготуватись до брифінгу — заздалегідь дати студентам інформацію про замовника.</li>
+  <li>Якщо курсовий у групах — поділити студентів, менеджер курсу створює чати груп.</li>
+  <li>Слідкувати за роботою студентів над проєктом.</li>
+  <li>Поділити роботу на етапи з дедлайном для кожного (опційно, але рекомендовано).</li>
+  <li>Зробити передзахист і дати фідбек на доопрацювання.</li>
+  <li>Узгодити дату захисту з менеджером курсу.</li>
+  <li>Написати замовнику напередодні захисту, розповісти як все відбуватиметься.</li>
+  <li>Провести захист, після замовника дати фідбек студентам.</li>
+</ul>
+</details>
+
+<details class="toggle-h2">
+<summary>Курсовий проєкт без замовника</summary>
+<p>Є курси, специфіка яких не дозволяє якісно інтегрувати реальну задачу — тоді студенти працюють над штучним проєктом, максимально наближеним до реального (умови й вихідні дані готує автор програми). Роль замовника для студентів виконує сам куратор з усіма етапами: презентує задачу, задає таймінг і дедлайни, дає фідбек.</p>
+
+<h3>Чек-лист куратора: курсовий проєкт без замовника</h3>
+<ul class="checklist">
+  <li>Підготуватись до брифінгу, завчасно надати студентам інформацію про проєкт (можливо з презентацією) та провести брифування, щоб відповісти на усі запитання студентів.</li>
+  <li>Разом з менеджером курсу поділити студентів на групи для роботи над курсовою, менеджер курсу створює чати групам.</li>
+  <li>Слідкувати за роботою студентів над курсовим проєктом.</li>
+  <li>Опціонально, але я раджу: поділити роботу на етапи і встановити дедлайн для кожного етапу, коли студенти мають здати частину роботи на перевірку.</li>
+  <li>По готовності домовитись про дату захисту.</li>
+  <li>З менеджером курсу узгодити дату захисту і випуску.</li>
+  <li>Провести захист курсових робіт, дати фідбек на роботу студентів.</li>
+</ul>
+</details>
+
+  </div>
+  <button class="next-chapter" data-goto="03-6">
+    <div class="lbl">Далі</div>
+    <div class="ttl">Кризова комунікація</div>
+  </button>
+  <div class="author-box">
+    <div class="avatar">PI</div>
+    <div>
+      <div class="name">Продюсерська команда Projector Institute</div>
+      <div class="bio">Ця книга зібрана з бази знань кураторів — понад 10-річного досвіду роботи зі студентами, курсами та вебінарами.</div>
+    </div>
+  </div>
+</article>
+
+<article class="chapter-pane" id="page-03-6" hidden>
+  <button class="back-link" data-goto="toc">← Зміст книги</button>
+  <header class="chapter-head">
+    <div class="chapter-eyebrow">Розділ 3.6 — Фідбеки та робота зі студентами</div>
+    <h1>Кризова комунікація</h1>
+    <p class="subtitle">Що робити, коли щось іде не так</p>
+  </header>
+  <div class="chapter-body">
+    
+<p>Рано чи пізно на курсі трапляється складна ситуація: студент не погоджується з фідбеком, хтось домінує в дискусії, хтось поводиться токсично. Тут зібрані найпоширеніші проблеми, з якими стикаються куратори, і поради, як залишатись етичним та ефективним у відповідь.</p>
+
+<div class="callout">
+  <span class="label">Памʼятай</span>
+  <p>Попри всі поради нижче, менеджер та продюсер курсу — твоя опора в роботі. Звертайся до них, коли потрібно.</p>
+</div>
+
+<h2>Емпатична комунікація — твоя база</h2>
+<p>Це техніка спілкування, мета якої — створити безпечне середовище, у якому людина відчуває себе почутою, зрозумілою та підтриманою. Вона допомагає вирішувати складні ситуації, уникаючи конфлікту.</p>
+
+<p>Схема з чотирьох кроків:</p>
+<ol>
+  <li><strong>Спостереження</strong> — говори про факти, а не про свою думку чи звинувачення.</li>
+  <li><strong>Почуття</strong> — розкажи, як ти почуваєшся, без нападок на іншу людину.</li>
+  <li><strong>Потреба</strong> — чітко скажи, чого потребуєш, щоб уникнути непорозумінь.</li>
+  <li><strong>Прохання</strong> — попроси конкретно і чітко, замість того, щоб вимагати.</li>
+</ol>
+
+<div class="callout">
+  <span class="label">Приклад</span>
+  <p><em>Ситуація:</em> студент не погоджується з фідбеком куратора.</p>
+  <p>«Я бачу, що ти приклав багато зусиль до цієї роботи, і розумію твою реакцію. Проте пам'ятай, що мої коментарі спрямовані на те, щоб допомогти тобі розвиватися і досягати кращих результатів. Тому якщо в тебе є конкретні питання або ти не згоден з якимось аспектом — давай це обговоримо разом».</p>
+</div>
+<p class="note">Для кращого розуміння техніки — <a href="https://www.youtube.com/watch?v=RUrvIjwZFqs" target="_blank">коротеньке відео</a>.</p>
+
+<h2>Типи складних учасників</h2>
+
+<div class="tool-grid">
+<div class="tool-card" data-panel="panel-diff-1" tabindex="0" role="button">
+  <div class="tool-name">Активні або домінуючі студенти</div>
+  <p class="tool-preview">Постійно привертають до себе увагу, перебивають, жартують невлад, демонструють скептицизм і самовпевненість.</p>
+  <span class="tool-toggle">Детальніше <span class="schevron">›</span></span>
+</div>
+<template id="panel-diff-1">
+  <h2>Активні або домінуючі студенти</h2>
+  <p>Найчастіше за цим стоїть невпевненість і велике бажання уваги.</p>
+  <p><strong>Способи роботи:</strong></p>
+  <ul>
+    <li>відповіді по черзі з контролем часу;</li>
+    <li>групова робота, щоб дати висловитись усім;</li>
+    <li>пряме запитання до конкретної людини;</li>
+    <li>ввічливо повертати розмову до теми;</li>
+    <li>переводити скептичні репліки в питання до всієї групи.</li>
+  </ul>
+  <p><em>Приклад фрази:</em> «Клас, дякую за активність — я бачу, що у тебе є ще що сказати, але давайте почуємо тих, хто ще не говорив сьогодні».</p>
+</template>
+
+<div class="tool-card" data-panel="panel-diff-2" tabindex="0" role="button">
+  <div class="tool-name">Агресивні студенти</div>
+  <p class="tool-preview">Відкрито проявляють незадоволення й роздратування, підвищують тон, переходять у напад при незгоді.</p>
+  <span class="tool-toggle">Детальніше <span class="schevron">›</span></span>
+</div>
+<template id="panel-diff-2">
+  <h2>Агресивні студенти</h2>
+  <p><strong>Способи роботи:</strong></p>
+  <ul>
+    <li>зберігати спокій і не відповідати агресією на агресію;</li>
+    <li>визнавати за учасником право на іншу думку;</li>
+    <li>через активне слухання зрозуміти справжню причину спротиву;</li>
+    <li>за потреби — підключити групу;</li>
+    <li>якщо поведінка стає неприйнятною, захищати себе та інших через «я-висловлювання».</li>
+  </ul>
+</template>
+
+<div class="tool-card" data-panel="panel-diff-3" tabindex="0" role="button">
+  <div class="tool-name">Студенти, що маніпулюють</div>
+  <p class="tool-preview">Поруч з ними виникає відчуття, що тебе використали: лестощі, жалість до себе, демонстрація безпорадності.</p>
+  <span class="tool-toggle">Детальніше <span class="schevron">›</span></span>
+</div>
+<template id="panel-diff-3">
+  <h2>Студенти, що маніпулюють</h2>
+  <p><strong>Способи роботи:</strong></p>
+  <ul>
+    <li>прояснити справжню мету взаємодії прямим питанням;</li>
+    <li>тримати однакову, стриману позицію до всіх учасників;</li>
+    <li>не розвивати довгий діалог, якщо позицію не вдається прояснити;</li>
+    <li>не давати втягнути себе в маніпуляцію щодо інших людей;</li>
+    <li>наголошувати на особистій відповідальності кожного за результат.</li>
+  </ul>
+</template>
+
+<div class="tool-card" data-panel="panel-diff-4" tabindex="0" role="button">
+  <div class="tool-name">Студенти з низьким рівнем знань</div>
+  <p class="tool-preview">Повільно прогресують попри старання, ставлять базові питання, не завжди застосовують отримані коментарі, постійно сумніваються в собі.</p>
+  <span class="tool-toggle">Детальніше <span class="schevron">›</span></span>
+</div>
+<template id="panel-diff-4">
+  <h2>Студенти з низьким рівнем знань</h2>
+  <p><strong>Способи роботи:</strong></p>
+  <ul>
+    <li>паузи для питань на вебінарах;</li>
+    <li>peer-to-peer формат, коли студенти пояснюють одне одному;</li>
+    <li>власні приклади куратора;</li>
+    <li>питання для перевірки на початку заняття;</li>
+    <li>дружній розбір типових помилок.</li>
+  </ul>
+  <p>Щодо фідбеку — розбивай його на кілька ітерацій, обмеж їх кількість (рекомендовано 5–6), хвали за прогрес навіть найменший, за потреби додай 1:1 дзвінок.</p>
+  <p><em>Коли нормально сказати студенту, що це «не його/її»?</em> Тільки коли він сам про це запитає. Бажання почепити ярлик — ще не привід це робити.</p>
+</template>
+
+<div class="tool-card" data-panel="panel-diff-5" tabindex="0" role="button">
+  <div class="tool-name">Токсична поведінка</div>
+  <p class="tool-preview">Токсичною буває поведінка, а не людина — і часто за нею стоїть те, що студенту зараз непросто.</p>
+  <span class="tool-toggle">Детальніше <span class="schevron">›</span></span>
+</div>
+<template id="panel-diff-5">
+  <h2>Токсична поведінка</h2>
+  <p><strong>Способи роботи:</strong></p>
+  <ul>
+    <li>виявити першопричину;</li>
+    <li>залишатись спокійним і емпатичним;</li>
+    <li>встановити чіткі межі щодо неприйнятної поведінки;</li>
+    <li>перенести розмову в 1:1 формат;</li>
+    <li>за потреби підтримати інших студентів, на яких вплинула ситуація;</li>
+    <li>фіксувати випадки і, якщо потрібно, підключати менеджера чи продюсера курсу.</li>
+  </ul>
+</template>
+</div>
+
+<div class="callout">
+  <span class="label">Важливо</span>
+  <p>При виявленні будь-якої деструктивної поведінки обговорюй ситуацію 1 на 1, а не публічно. Твоя реакція на чужу деструктивну поведінку — те, на що ти можеш впливати. Займаючи асертивну позицію («я ок, ти ок»), ти лишаєш людині вибір: перейти на асертивність або вийти з комунікації.</p>
+</div>
+<p class="note">Детальніше про асертивність — <a href="https://www.dosebe.com.ua/blog/assertiveness" target="_blank">стаття «Асертивні права Мануеля»</a>.</p>
+
+<hr>
+
+<h2>Організаційні ситуації</h2>
+
+<h3>Російськомовний студент</h3>
+<p>Мова курсу — українська. Якщо студенту некомфортно чути російську мову в групі, куратор підтримує цю позицію і проговорює правило на групу. Ми в будь-якому разі стаємо на сторону української мови.</p>
+
+<h3>Студент не отримав сертифікат (або отримав без відзнаки)</h3>
+<p>Аргументуй кількістю зарахованих домашніх завдань та курсових проєктів — усі студенти були в рівних умовах. Сертифікат з відзнакою — про особистісний розвиток протягом курсу й активність, а не лише про формальні показники. Про золоті сертифікати та критерії їх отримання — <a href="04-sertyfikaty.html" data-goto="04">розділ 4 «Сертифікати»</a> цієї книги.</p>
+
+<h3>Домашні завдання, здані пізно або після курсу</h3>
+<p>Прострочені роботи можна перевіряти наступною плановою перевіркою — фідбек варто дати, навіть якщо він менш розгорнутий. Заздалегідь оголошуй дедлайн прийому робіт по кожному місяцю, щоб уникнути завалу в останні дні курсу.</p>
+
+  </div>
+  <button class="next-chapter" data-goto="04">
+    <div class="lbl">Далі</div>
+    <div class="ttl">Сертифікати</div>
+  </button>
+  <div class="author-box">
+    <div class="avatar">PI</div>
+    <div>
+      <div class="name">Продюсерська команда Projector Institute</div>
+      <div class="bio">Ця книга зібрана з бази знань кураторів — понад 10-річного досвіду роботи зі студентами, курсами та вебінарами.</div>
+    </div>
+  </div>
+</article>
+
+<article class="chapter-pane" id="page-04" hidden>
+  <button class="back-link" data-goto="toc">← Зміст книги</button>
+  <header class="chapter-head">
+    <div class="chapter-eyebrow">Розділ 4</div>
+    <h1>Сертифікати</h1>
+    <p class="subtitle">За що ми видаємо звичайний і золотий сертифікат — і що таке відзнака куратора</p>
+  </header>
+  <div class="chapter-body">
+    
+<p>За результатами роботи на курсі студент може отримати сертифікат — звичайний або золотий. Нам важлива якість, тож ми не видаємо сертифікатів за участь, лише за набуті знання та вміння. І ще є окрема штука — «відзнака куратора». Розберемо все по порядку.</p>
+
+<h2>🏅 Звичайні сертифікати</h2>
+<p>Щоб отримати сертифікат про проходження курсу, студенту доведеться багато працювати — це залізне правило на всіх курсах Проджа. Роботи повинні бути не просто виконані, а зараховані куратором.</p>
+<div class="callout">
+  <p>Щоб отримати сертифікат, потрібно виконати — тобто отримати від куратора «зараховано» — не менше ніж <strong>70–80% домашок</strong> (відсоток залежить від курсу), а також <strong>захистити всі курсові проєкти</strong>.</p>
+</div>
+
+<h2>🥇 Золоті сертифікати</h2>
+<p>Це «відзнака» куратором студентів, які виконали умови отримання звичайного сертифіката плюс продемонстрували найбільший зріст протягом курсу: мають найбільший прогрес між першою і останньою роботою, доклали найбільше зусиль.</p>
+<div class="callout">
+  <span class="label">Ліміт</span>
+  <p>Золотий сертифікат може отримати <strong>не більше ніж 20%</strong> студентів групи — лише так він матиме цінність справжньої відзнаки.</p>
+</div>
+<p>Додаткові показники, крім прогресу:</p>
+<ul>
+  <li>студент був старанний протягом усього курсу, вкладався в дедлайни, робив навіть більше, ніж вимагалось;</li>
+  <li>студент відзначався активністю й мотивацією: відвідував вебінари, цікавився додатковою інформацією, просив додаткові завдання.</li>
+</ul>
+<div class="callout">
+  <span class="label">Зверни увагу</span>
+  <p>Це не обов'язково студент, роботу якого обрав замовник, і не обов'язково той, чия фінальна робота виглядає найпрофесійніше — адже хтось стартував уже підготовленим і виріс менше, ніж інший, який доклав значно більше зусиль. Якщо студент не виконав умов звичайного сертифіката — золотий він отримати не може.</p>
+</div>
+<p>Видавати золоті сертифікати чи ні — рішення на твій розсуд. Якщо є сумніви й не можеш виділити когось одного (бо всі класні) — залиш лише звичайні сертифікати.</p>
+
+<h2>🌟 Відзнака від куратора</h2>
+<p>Уяви: хтось приходить і просить порадити для співпраці когось зі своїх студентів. Той, кого ти готовий порадити — і є «студент з відзнакою».</p>
+<p><em>Чим це відрізняється від золотого сертифіката?</em> Цей студент може навіть не виконати потрібну кількість домашок і не бути особливо старанним з тих чи інших причин — але ти розумієш, що він крутий спеціаліст, якого сміливо порадив би другові.</p>
+<p><em>Навіщо це?</em> Студенти з такою відзнакою отримують позначку на кар'єрному сервісі <a href="https://www.lezo.io/ua" target="_blank">Lezo</a> — їх легше знайти. Це додатковий критерій для покращення системи рекомендацій випускників.</p>
+<div class="callout">
+  <span class="label">Зверни увагу</span>
+  <p>Ця відзнака — суб'єктивне враження куратора, тому ми не оголошуємо про неї студентам, щоб не викликати невиправданих сподівань і непорозумінь.</p>
+</div>
+
+<h2>📚 Організаційне</h2>
+<ol>
+  <li>На вебінарі-знайомстві обов'язково розкажи про критерії отримання звичайного і золотого сертифіката — це мотивує студентів і запобігає непорозумінням.</li>
+</ol>
+<div class="callout">
+  <p><em>«Щоб отримати сертифікат, у вас має бути зараховано …% домашніх завдань та захищений перед замовником курсовий проєкт. У нас також можуть бути золоті сертифікати — їх отримають студенти з найбільшим розвитком протягом курсу. Золоті сертифікати ні на що не впливають — це приємність за те, що ви зробили більше за інших, і ми хочемо вас за це похвалити.»</em></p>
+</div>
+<ol start="2">
+  <li>По завершенню курсу передай менеджеру інформацію про студентів, які отримують звичайні, золоті сертифікати і «відзнаку куратора». Статистику зарахованих домашок легко подивитись в EducateMe (<a href="https://app.notion.com/p/e0a7ead502d0446b9c2b036e4ff8ca39?pvs=21" target="_blank">інструкція, як саме це зробити</a>).</li>
+</ol>
+
+  </div>
+  <button class="next-chapter" data-goto="05">
+    <div class="lbl">Далі</div>
+    <div class="ttl">Фінансово-юридичні питання</div>
+  </button>
+  <div class="author-box">
+    <div class="avatar">PI</div>
+    <div>
+      <div class="name">Продюсерська команда Projector Institute</div>
+      <div class="bio">Ця книга зібрана з бази знань кураторів — понад 10-річного досвіду роботи зі студентами, курсами та вебінарами.</div>
+    </div>
+  </div>
+</article>
+
+<article class="chapter-pane" id="page-05" hidden>
+  <button class="back-link" data-goto="toc">← Зміст книги</button>
+  <header class="chapter-head">
+    <div class="chapter-eyebrow">Розділ 5</div>
+    <h1>Фінансово-юридичні питання</h1>
+    <p class="subtitle">ФОП, КВЕДи, податки й виплата гонорару</p>
+  </header>
+  <div class="chapter-body">
+    
+<div class="callout">
+  <p>Ми в Projector працюємо по-білому — законно і правильно. Тому розраховуємось з кураторами через ФОП. Цей гайд допоможе розібратись з питаннями щодо ФОП і нашої співпраці з фінансового боку.</p>
+</div>
+
+<h2>Відкриття ФОП</h2>
+<p>Якщо в тебе немає власного ФОП, є два варіанти: відкрити його або працювати з «дружнім» ФОП.</p>
+<p>Найшвидший спосіб відкриття ФОП — через застосунок Дія (<a href="https://youtu.be/Ds6ZyuAypSk?feature=shared" target="_blank">покрокова відеоінструкція</a>, детальніше — <a href="https://vchasno.ua/fop/" target="_blank">тут</a>).</p>
+<div class="callout">
+  <span class="label">Важливо</span>
+  <p>Ми можемо працювати лише з ФОП <strong>3 групи</strong>, оскільки самі належимо до неї — тільки таким ФОП можемо підписувати договори і робити виплати. Також ми <strong>не можемо</strong> здійснювати виплати ФОП, зареєстрованим на тимчасово окупованих територіях України.</p>
+</div>
+<p>Для співпраці потрібні КВЕДи для ведення освітньої діяльності — виплати здійснюються саме за ними, тож важливо відкрити всі 4 КВЕДи зі списку:</p>
+<ul>
+  <li><strong>85.60</strong> Допоміжна діяльність у сфері освіти</li>
+  <li><strong>62.02</strong> Консультування з питань інформатизації</li>
+  <li><strong>63.99</strong> Надання інших інформаційних послуг, н.в.і.у.</li>
+  <li><strong>85.59</strong> Інші види освіти, н.в.і.у.</li>
+</ul>
+
+<h3>Відкриття КВЕДів через Дію</h3>
+<ol>
+  <li>У розділі «Послуги» обери «Усі послуги».</li>
+  <li>Обери «Внесення змін про ФОП».</li>
+  <li>У блоці «Види економічної діяльності» натисни «Редагувати».</li>
+  <li>Введи код КВЕД — система підкаже потрібний, вибери і збережи. Можна вписати будь-яку кількість кодів.</li>
+  <li>Підтверди зміни й підпиши заяву електронним підписом.</li>
+</ol>
+<p class="note"><a href="https://www.youtube.com/watch?v=zTgubRxM99E" target="_blank">Відеоінструкція з відкриття КВЕДів (з 1:30 хв)</a></p>
+<p>Повідомлення про реєстрацію чи відмову надійде в кабінет і на пошту, вказану при реєстрації. Після підтвердження можна відкривати рахунок у зручному банку. Після всіх кроків знадобиться виписка з ЄДР — її можна отримати в Дії.</p>
+
+<h3>Формування виписки з ЄДР у Дії</h3>
+<ol>
+  <li>У розділі «Послуги» обери «Усі послуги».</li>
+  <li>За алфавітом у списку обери «Витяг із ЄДР».</li>
+  <li>Замов послугу — документ з'явиться в Дії та надійде на пошту.</li>
+  <li>Прикріпи документ у формі з даними, або надішли на <a href="mailto:finance@prjctr.com.ua">finance@prjctr.com.ua</a> з описом, до якого ФОП він належить.</li>
+</ol>
+
+<h2>«Дружній» ФОП</h2>
+<p>Якщо власного ФОП немає і відкрити його зараз не вийде — можна отримувати виплату на «дружній» ФОП (друзів, колег чи рідних, готових приймати кошти на свій рахунок як довірена особа). Це має бути ФОП 3 групи з тими самими відкритими КВЕДами. Умови переказу коштів з цього ФОП далі узгоджуєш самостійно.</p>
+
+<h2>Податки</h2>
+<p>Ми виплачуємо суму гонорару, про яку домовились на початку співпраці, і не покриваємо податки на цю суму — кожен сплачує їх самостійно на своїй стороні.</p>
+
+<h2>Робота з Вчасно</h2>
+<p>Ми працюємо з безкоштовним онлайн-сервісом підписання документів «Вчасно». Варто зареєструватись там, якщо використовуєш «дружній» ФОП, і переконатись, що в нього теж є акаунт.</p>
+<ul>
+  <li><a href="https://help.vchasno.com.ua/signin/" target="_blank">Інструкція з реєстрації у Вчасно</a></li>
+  <li><a href="https://help.vchasno.com.ua/signdoc/" target="_blank">Інструкція з підпису документів</a></li>
+  <li><a href="https://help.vchasno.com.ua/signdoc-diia/" target="_blank">Підпис документів через Дія</a></li>
+</ul>
+
+<h2>Виплата гонорару та підпис документів</h2>
+<p>На початку співпраці підписуємо договір (<a href="https://docs.google.com/document/d/1uHOT-8jaaJtoBtuwLsTOFRniTJiLsW4C/edit?usp=sharing&ouid=101754976115441141291&rtpof=true&sd=true" target="_blank">шаблон тут</a>) — формат може залежати від формату співпраці. Якщо є питання чи потрібно щось змінити — звернись до рекрутера або продюсера, з яким працюєш.</p>
+<p>Виплата гонорару відбувається в кінці кожного навчального місяця за датою старту курсу. Наприклад, якщо курс стартував 4 вересня, виплати будуть кожного 4 числа наступного місяця.</p>
+<div class="callout">
+  <span class="label">Важливо</span>
+  <p>Перед виплатою прийде сповіщення на пошту про документ на підпис у «Вчасно». Виплата здійснюється лише після підпису документа. <strong>Дедлайн для підпису — 2 дні.</strong> Будь ласка, не затримуй підпис документів.</p>
+</div>
+<p>Перепідписання договору відбувається після закінчення терміну дії — або достроково, якщо оновлюються твої дані чи змінюється ФОП з боку компанії.</p>
+
+  </div>
+  <button class="next-chapter" data-goto="06">
+    <div class="lbl">Далі</div>
+    <div class="ttl">Відеолекції навчальної програми для кураторів</div>
+  </button>
+  <div class="author-box">
+    <div class="avatar">PI</div>
+    <div>
+      <div class="name">Продюсерська команда Projector Institute</div>
+      <div class="bio">Ця книга зібрана з бази знань кураторів — понад 10-річного досвіду роботи зі студентами, курсами та вебінарами.</div>
+    </div>
+  </div>
+</article>
+
+<article class="chapter-pane" id="page-06" hidden>
+  <button class="back-link" data-goto="toc">← Зміст книги</button>
+  <header class="chapter-head">
+    <div class="chapter-eyebrow">Розділ 6</div>
+    <h1>Відеолекції навчальної програми для кураторів</h1>
+    <p class="subtitle">Повна програма інституту кураторства в EducateMe</p>
+  </header>
+  <div class="chapter-body">
+    
+<p>Повна навчальна програма для кураторів доступна у форматі відеолекцій в EducateMe. Нижче — відео кожного модуля програми.</p>
+<details class="card">
+  <summary><span class="sname">Інститут кураторства. Learning Experience Design</span><span class="stags"><span class="schevron">›</span></span></summary>
+  <div class="card-body">
+    <p>Як проєктувати досвід навчання студента, а не тільки контент курсу.</p>
+    <div class="video-embed"><iframe src="https://player.vimeo.com/video/778967752" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div>
+    
+  </div>
+</details>
+<details class="card">
+  <summary><span class="sname">Інститут кураторства. Learning Objectives</span><span class="stags"><span class="schevron">›</span></span></summary>
+  <div class="card-body">
+    <p>Як формулювати цілі навчання так, щоб і куратор, і студент розуміли, до чого йдуть.</p>
+    <div class="video-embed"><iframe src="https://player.vimeo.com/video/778977739" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div>
+    
+  </div>
+</details>
+<details class="card">
+  <summary><span class="sname">Інститут кураторства. Створення курсу</span><span class="stags"><span class="schevron">›</span></span></summary>
+  <div class="card-body">
+    <p>Як влаштована структура курсу від задуму до фінального проєкту.</p>
+    <div class="video-embed"><iframe src="https://player.vimeo.com/video/778991963" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div>
+    
+  </div>
+</details>
+<details class="card">
+  <summary><span class="sname">Інститут кураторства. Партисипативні вебінари</span><span class="stags"><span class="schevron">›</span></span></summary>
+  <div class="card-body">
+    <p>Як будувати заняття за принципом «нашарування» — розігрів, активність, рефлексія.</p>
+    <div class="video-embed"><iframe src="https://player.vimeo.com/video/779637771" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div>
+    
+  </div>
+</details>
+<details class="card">
+  <summary><span class="sname">Інститут кураторства. Взаємодія зі студентами</span><span class="stags"><span class="schevron">›</span></span></summary>
+  <div class="card-body">
+    <p>Базові принципи комунікації й підтримки студентів протягом курсу.</p>
+    <div class="video-embed"><iframe src="https://player.vimeo.com/video/779697706" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div>
+    
+  </div>
+</details>
+<details class="card">
+  <summary><span class="sname">Тепер ти вчишся по-проджекторному. Як взяти максимум користі</span><span class="stags"><span class="schevron">›</span></span></summary>
+  <div class="card-body">
+    <p>Вступна лекція для студентів про те, як отримати найбільше від навчання в Projector.</p>
+    <div class="video-embed"><iframe src="https://player.vimeo.com/video/961244352?h=c7c2e5ab7b" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div>
+    
+<p><strong>Якщо полюбляєш чеклисти, ось список порад для ефективного навчання, згаданих у цій лекції:</strong></p>
+<ul>
+  <li>Прокачуй свою зосередженість.</li>
+  <li>Конспектуй інформацію з лекцій та вебінарів.</li>
+  <li>Підсилюй продуктивність методом Pomodoro.</li>
+  <li>Перемикай увагу на улюблену фізичну активність.</li>
+  <li>Усвідом свої цілі та запиши їх, аби повертатись до них, коли бракує мотивації.</li>
+  <li>Сміливо став питання кураторів, однокласникам і навіть ChatGPT.</li>
+  <li>Спи. Так-так, відпочивати = закріпити вивчене.</li>
+</ul>
+
+  </div>
+</details>
+<details class="card">
+  <summary><span class="sname">Особливості навчання військових та ветеранів/ок</span><span class="stags"><span class="schevron">›</span></span></summary>
+  <div class="card-body">
+    <p>Що варто враховувати, якщо серед студентів є військові чи ветерани.</p>
+    <div class="video-embed"><iframe src="https://player.vimeo.com/video/1040148815?h=f3a29d8b48" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div>
+    
+<p><strong>Додаткові матеріали:</strong></p>
+<ul>
+  <li><a href="https://www.instagram.com/vo_vesta/" target="_blank">ВО «Веста»</a></li>
+  <li><a href="https://study.hs.gov.ua/" target="_blank">Онлайн-курс «Мова сьогодення. Комунікація з ветеранами та їхніми родинами»</a></li>
+</ul>
+
+  </div>
+</details>
+<details class="card">
+  <summary><span class="sname">Комунікація з близькими військових</span><span class="stags"><span class="schevron">›</span></span></summary>
+  <div class="card-body">
+    <p>Як говорити з рідними студентів, які зараз на службі чи в зоні бойових дій.</p>
+    <div class="video-embed"><iframe src="https://player.vimeo.com/video/1040558717?h=143e9dc291" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div>
+    
+<p><strong>Додаткові матеріали:</strong></p>
+<ul>
+  <li><a href="https://yakty.com.ua/" target="_blank">Як ти, брате? Як розмовляти під час війни</a></li>
+  <li><a href="https://www.prjctrfoundation.com/partnerky" target="_blank">Не ранити, а підтримати</a></li>
+  <li><a href="https://youtu.be/3lZlMGvQ-so?si=6Nso32GjAYotbNkx" target="_blank">Відеоманіфест коханих воїнів «Бути коханою воїна — бути поруч»</a></li>
+</ul>
+
+  </div>
+</details>
+
+<p class="note">Доступ до повної версії програми — через навчальну програму куратора в EducateMe. Якщо не маєш доступу, звернись до свого менеджера курсу.</p>
+
+  </div>
+  <button class="next-chapter" data-goto="toc">
+    <div class="lbl">До змісту книги</div>
+    <div class="ttl">Зміст книги</div>
+  </button>
+  <div class="author-box">
+    <div class="avatar">PI</div>
+    <div>
+      <div class="name">Продюсерська команда Projector Institute</div>
+      <div class="bio">Ця книга зібрана з бази знань кураторів — понад 10-річного досвіду роботи зі студентами, курсами та вебінарами.</div>
+    </div>
+  </div>
+</article>
+
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="side-panel-overlay" id="side-panel-overlay">
+  <div class="side-panel">
+    <button class="side-panel-close" id="side-panel-close" aria-label="Закрити">✕</button>
+    <div id="side-panel-content"></div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var root = document.getElementById('pane-root');
+  var tocPane = document.getElementById('pane-toc');
+  var chaptersPane = document.getElementById('pane-chapters');
+  var pageEls = {};
+  document.querySelectorAll('.chapter-pane').forEach(function(el){
+    pageEls[el.id.replace('page-','')] = el;
+  });
+
+  function showToc(){
+    tocPane.classList.add('active');
+    chaptersPane.classList.remove('active');
+    Object.keys(pageEls).forEach(function(k){ pageEls[k].hidden = true; });
+    root.scrollTop = 0;
+  }
+  function showPage(id){
+    tocPane.classList.remove('active');
+    chaptersPane.classList.add('active');
+    Object.keys(pageEls).forEach(function(k){ pageEls[k].hidden = (k !== id); });
+    root.scrollTop = 0;
+  }
+
+  var overlay = document.getElementById('side-panel-overlay');
+  var panelContent = document.getElementById('side-panel-content');
+  function openPanel(id){
+    var tpl = document.getElementById(id);
+    if(!tpl) return;
+    panelContent.innerHTML = tpl.innerHTML;
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closePanel(){
+    overlay.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  document.addEventListener('click', function(e){
+    var card = e.target.closest('.tool-card');
+    if(card){
+      openPanel(card.getAttribute('data-panel'));
+      return;
+    }
+    if(e.target === overlay || e.target.closest('#side-panel-close')){
+      closePanel();
+      return;
+    }
+    var t = e.target.closest('[data-goto]');
+    if(!t) return;
+    e.preventDefault();
+    var goto = t.getAttribute('data-goto');
+    if(goto === 'toc'){ showToc(); } else { showPage(goto); }
+  });
+
+  document.addEventListener('keydown', function(e){
+    var card = e.target.closest && e.target.closest('.tool-card');
+    if(card && (e.key === 'Enter' || e.key === ' ')){
+      e.preventDefault();
+      openPanel(card.getAttribute('data-panel'));
+    }
+    if(e.key === 'Escape'){ closePanel(); }
+  });
+})();
+</script>
+
+</body>
+</html>
