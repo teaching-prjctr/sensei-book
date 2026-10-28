@@ -436,6 +436,38 @@ template{display:none}
 }
 .next-chapter:hover .ttl{color:var(--accent)}
 .author-box{border-top:1px solid var(--line);margin:50px 0 0;padding:26px 0 10px;max-width:none}
+
+/* ---------- keyword search ---------- */
+.search-box{position:relative;margin:0 0 26px}
+.search-box input{
+  width:100%;font-family:var(--sans);font-size:16px;color:var(--ink);
+  background:#fff;border:1px solid var(--line);border-radius:8px;
+  padding:13px 40px 13px 42px;outline:none;transition:border-color .15s, box-shadow .15s;
+}
+.search-box input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(0,118,255,.12)}
+.search-box .search-icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--muted);pointer-events:none;display:flex}
+.search-box .search-clear{position:absolute;right:8px;top:50%;transform:translateY(-50%);border:none;background:none;
+  font-size:20px;line-height:1;color:var(--muted);cursor:pointer;padding:6px 8px;display:none}
+.search-box.has-query .search-clear{display:block}
+.search-box .search-hint{font-family:var(--sans);font-size:12px;color:var(--muted);margin-top:6px}
+.search-results{display:none}
+.search-active .search-results{display:block}
+.search-active .toc-intro,.search-active .toc,.search-active .closing{display:none}
+.search-count{font-family:var(--sans);font-size:13px;color:var(--muted);margin:0 0 12px}
+.search-list{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.search-list li{border-bottom:1px solid var(--line)}
+.search-list a{display:block;padding:14px 2px;color:var(--ink)}
+.search-list a:hover{text-decoration:none}
+.search-list a:hover .sr-title{color:var(--accent)}
+.sr-where{font-family:var(--sans);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:3px}
+.sr-title{font-size:18px;font-weight:700;margin-bottom:4px}
+.sr-snippet{font-family:var(--sans);font-size:14px;color:var(--muted);line-height:1.55}
+.search-empty{font-family:var(--sans);font-size:15px;color:var(--muted);padding:18px 0}
+mark.sh{background:#fff1a8;color:inherit;padding:0 1px;border-radius:2px}
+.search-flash{animation:searchflash 2.2s ease-out}
+@keyframes searchflash{0%,40%{background:#fff1a8}100%{background:transparent}}
+.nav-search-btn{font-family:var(--sans);font-size:13px;color:var(--muted);background:none;border:none;cursor:pointer;padding:0;margin-right:16px}
+.nav-search-btn:hover{color:var(--accent)}
 </style>
 </head>
 <body>
@@ -451,6 +483,12 @@ template{display:none}
     <div class="cover-right" id="pane-root">
 
       <div class="pane active" id="pane-toc">
+        <div class="search-box" id="search-box">
+          <span class="search-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg></span>
+          <input type="text" id="search-input" placeholder="Пошук по книзі: ключове слово або фраза" autocomplete="off" aria-label="Пошук по книзі">
+          <button class="search-clear" id="search-clear" type="button" aria-label="Очистити">×</button>
+        </div>
+        <div class="search-results" id="search-results"></div>
         <div class="toc-intro">
           <p>Тут можна знайти відповіді на більшість питань, що виникатимуть в тебе під час викладання.</p>
           <p>Тобі не обов'язково читати це все одразу! Рекомендуємо спочатку ознайомитись зі структурою Книги, а вже після занурюватись поступово в ті теми, які тобі видаються найбільш актуальними.</p>
@@ -2692,7 +2730,7 @@ template{display:none}
 <p>Це «відзнака» куратором студентів, які виконали умови отримання звичайного сертифіката плюс продемонстрували найбільший зріст протягом курсу: мають найбільший прогрес між першою і останньою роботою, доклали найбільше зусиль.</p>
 <div class="callout">
   <span class="label">Ліміт</span>
-  <p>Золотий сертифікат може отримати <strong>не більше ніж 20%</strong> студентів групи — лише так він матиме цінність справжньої відзнаки.</p>
+  <p>Кількість студентів, що може отримати золотий сертифікат — <strong>не більше ніж 20%</strong> від загальної кількості сертифікатів в групі.</p>
 </div>
 <p>Додаткові показники, крім прогресу:</p>
 <ul>
@@ -3022,5 +3060,188 @@ template{display:none}
 })();
 </script>
 
+
+<script>
+(function(){
+  var root=document.getElementById('pane-root');
+  var tocPane=document.getElementById('pane-toc');
+  var input=document.getElementById('search-input');
+  var box=document.getElementById('search-box');
+  var clearBtn=document.getElementById('search-clear');
+  var resultsEl=document.getElementById('search-results');
+
+  function norm(t){return (t||'').toLowerCase().replace(/[’ʼ`´]/g,"'").replace(/ё/g,'е');}
+  function clean(t){return (t||'').replace(/\s+/g,' ').trim();}
+  function esc(t){return t.replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+
+  /* ---- build index ---- */
+  var index=[];
+  document.querySelectorAll('.chapter-pane').forEach(function(page){
+    var pid=page.id.replace('page-','');
+    var eyebrow=page.querySelector('.chapter-eyebrow');
+    var h1=page.querySelector('.chapter-head h1');
+    var where=eyebrow?clean(eyebrow.textContent):'';
+    var title=h1?clean(h1.textContent):pid;
+    var sub=page.querySelector('.chapter-head .subtitle');
+    index.push({type:'page',page:pid,where:where,title:title,text:clean(title+'. '+(sub?sub.textContent:''))});
+    var body=page.querySelector('.chapter-body');
+    if(body){
+      body.querySelectorAll('p,li,h2,h3,h4,td,th,blockquote,summary').forEach(function(el){
+        if(el.closest('.tool-card')) return;
+        if(el.querySelector('p,li,h2,h3,h4,td')) return;
+        var t=clean(el.textContent); if(t.length<3) return;
+        index.push({type:'block',page:pid,where:where,title:title,text:t,el:el});
+      });
+    }
+    page.querySelectorAll('template[id]').forEach(function(tpl){
+      var h=tpl.content.querySelector('h2');
+      var ptitle=h?clean(h.textContent):title;
+      index.push({type:'panel',page:pid,panel:tpl.id,where:where+' · '+title,title:ptitle,text:clean(tpl.content.textContent)});
+    });
+  });
+  index.forEach(function(e){e.n=norm(e.text);e.nt=norm(e.title);});
+
+  function snippet(text,terms){
+    var n=norm(text),pos=-1;
+    for(var i=0;i<terms.length;i++){var p=n.indexOf(terms[i]);if(p>-1&&(pos<0||p<pos))pos=p;}
+    var start=Math.max(0,pos-70),end=Math.min(text.length,(pos<0?0:pos)+160);
+    var s=(start>0?'…':'')+text.slice(start,end)+(end<text.length?'…':'');
+    return highlight(s,terms);
+  }
+  function highlight(s,terms){
+    var out=esc(s),ns=norm(s);
+    // mark ranges based on normalized text (same length as original)
+    var ranges=[];
+    terms.forEach(function(t){var i=0;while((i=ns.indexOf(t,i))>-1){ranges.push([i,i+t.length]);i+=t.length;}});
+    if(!ranges.length) return out;
+    ranges.sort(function(a,b){return a[0]-b[0];});
+    var merged=[];ranges.forEach(function(r){var l=merged[merged.length-1];if(l&&r[0]<=l[1])l[1]=Math.max(l[1],r[1]);else merged.push(r.slice());});
+    var res='',last=0;
+    merged.forEach(function(r){res+=esc(s.slice(last,r[0]))+'<mark class="sh">'+esc(s.slice(r[0],r[1]))+'</mark>';last=r[1];});
+    return res+esc(s.slice(last));
+  }
+
+  var lastTerms=[];
+  function search(q){
+    var terms=norm(q).split(/\s+/).filter(function(t){return t.length>0;});
+    lastTerms=terms;
+    if(!terms.length || (terms.length===1&&terms[0].length<2)){
+      tocPane.classList.remove('search-active');box.classList.toggle('has-query',!!q);resultsEl.innerHTML='';return;
+    }
+    box.classList.add('has-query');tocPane.classList.add('search-active');
+    var phrase=norm(q).trim();
+    var hits=[];
+    index.forEach(function(e,i){
+      for(var k=0;k<terms.length;k++){ if(e.n.indexOf(terms[k])<0) return; }
+      var score=0;
+      if(e.n.indexOf(phrase)>-1) score+=5;
+      terms.forEach(function(t){ if(e.nt.indexOf(t)>-1) score+=4; });
+      if(e.type==='page') score+=2;
+      if(e.type==='panel') score+=1;
+      hits.push({e:e,i:i,score:score});
+    });
+    // one result per block, but collapse many blocks of the same page into the best 3
+    hits.sort(function(a,b){return b.score-a.score||a.i-b.i;});
+    var perPage={},list=[];
+    hits.forEach(function(h){
+      if(h.e.type==='block'){var k=h.e.page;perPage[k]=(perPage[k]||0)+1;if(perPage[k]>3)return;}
+      list.push(h);
+    });
+    var shown=list.slice(0,60);
+    if(!shown.length){
+      resultsEl.innerHTML='<div class="search-empty">Нічого не знайдено. Спробуй інше слово або коротшу форму (напр. «фідбек» замість «фідбеки»).</div>';
+      return;
+    }
+    var html='<div class="search-count">Знайдено: '+list.length+(list.length>shown.length?' (показано перші '+shown.length+')':'')+'</div><ul class="search-list">';
+    shown.forEach(function(h){
+      var e=h.e;
+      html+='<li><a href="#" data-sr="'+h.i+'"><div class="sr-where">'+esc(e.where)+'</div><div class="sr-title">'+highlight(e.title,terms)+'</div>'+
+        (e.type==='page'?'':'<div class="sr-snippet">'+snippet(e.text,terms)+'</div>')+'</a></li>';
+    });
+    resultsEl.innerHTML=html+'</ul>';
+  }
+
+  /* highlight matches inside an element (text nodes only) */
+  function markIn(container,terms){
+    if(!terms.length) return null;
+    var walker=document.createTreeWalker(container,NodeFilter.SHOW_TEXT,null),nodes=[],n;
+    while(n=walker.nextNode()){ if(n.parentNode.closest('script,style,mark')) continue; nodes.push(n); }
+    var first=null;
+    nodes.forEach(function(node){
+      var t=node.nodeValue,nt=norm(t),ranges=[];
+      terms.forEach(function(term){var i=0;while((i=nt.indexOf(term,i))>-1){ranges.push([i,i+term.length]);i+=term.length;}});
+      if(!ranges.length) return;
+      ranges.sort(function(a,b){return a[0]-b[0];});
+      var frag=document.createDocumentFragment(),last=0;
+      ranges.forEach(function(r){ if(r[0]<last) return;
+        frag.appendChild(document.createTextNode(t.slice(last,r[0])));
+        var m=document.createElement('mark');m.className='sh';m.textContent=t.slice(r[0],r[1]);frag.appendChild(m);
+        if(!first) first=m; last=r[1]; });
+      frag.appendChild(document.createTextNode(t.slice(last)));
+      node.parentNode.replaceChild(frag,node);
+    });
+    return first;
+  }
+  function clearMarks(){
+    document.querySelectorAll('.chapter-pane mark.sh').forEach(function(m){
+      var p=m.parentNode;p.replaceChild(document.createTextNode(m.textContent),m);p.normalize();
+    });
+  }
+
+  function go(gotoId){
+    var a=document.createElement('a');a.setAttribute('data-goto',gotoId);a.style.display='none';
+    document.body.appendChild(a);a.click();a.remove();
+  }
+
+  resultsEl.addEventListener('click',function(ev){
+    var a=ev.target.closest('[data-sr]'); if(!a) return;
+    ev.preventDefault(); ev.stopPropagation();
+    var e=index[+a.getAttribute('data-sr')],terms=lastTerms.slice();
+    clearMarks();
+    go(e.page);
+    if(e.type==='panel'){
+      var card=document.querySelector('.tool-card[data-panel="'+e.panel+'"]');
+      if(card){ card.scrollIntoView({block:'center'}); card.click(); }
+      setTimeout(function(){
+        var pc=document.getElementById('side-panel-content');
+        var m=pc&&markIn(pc,terms); if(m) m.scrollIntoView({block:'center',behavior:'smooth'});
+      },30);
+    } else if(e.type==='block' && e.el){
+      markIn(e.el,terms);
+      setTimeout(function(){
+        e.el.scrollIntoView({block:'center',behavior:'smooth'});
+        e.el.classList.remove('search-flash');void e.el.offsetWidth;e.el.classList.add('search-flash');
+      },30);
+    }
+  });
+
+  var timer;
+  input.addEventListener('input',function(){clearTimeout(timer);timer=setTimeout(function(){search(input.value);},120);});
+  input.addEventListener('keydown',function(ev){
+    if(ev.key==='Escape'){input.value='';search('');}
+    if(ev.key==='Enter'){var f=resultsEl.querySelector('[data-sr]');if(f)f.click();}
+  });
+  clearBtn.addEventListener('click',function(){input.value='';search('');input.focus();});
+
+  function focusSearch(){
+    go('toc');
+    setTimeout(function(){input.focus();input.select();},30);
+  }
+  // "Пошук" button next to "← Зміст книги" in every chapter
+  document.querySelectorAll('.chapter-nav-spa .back-link').forEach(function(b){
+    var s=document.createElement('button');s.className='nav-search-btn';s.type='button';s.textContent='Пошук';
+    s.addEventListener('click',function(ev){ev.stopPropagation();focusSearch();});
+    var wrap=document.createElement('span');wrap.appendChild(s);b.parentNode.insertBefore(wrap,b);wrap.appendChild(b);
+  });
+  // Clear old highlights when navigating back to the contents
+  document.addEventListener('click',function(ev){ if(ev.target.closest('[data-goto="toc"]')) clearMarks(); },true);
+  // Shortcut: "/" or Ctrl/Cmd+K
+  document.addEventListener('keydown',function(ev){
+    var tag=(ev.target.tagName||'').toLowerCase();
+    if(tag==='input'||tag==='textarea') return;
+    if(ev.key==='/'||((ev.metaKey||ev.ctrlKey)&&ev.key.toLowerCase()==='k')){ev.preventDefault();focusSearch();}
+  });
+})();
+</script>
 </body>
 </html>
