@@ -3244,5 +3244,19 @@ mark.sh{background:#fff1a8;color:inherit;padding:0 1px;border-radius:2px}
   });
 })();
 </script>
+
+<script>
+(function () {
+  function openFromHash() {
+    var id = decodeURIComponent(location.hash.slice(1));
+    if (!id) return;
+    var link = document.querySelector('[data-goto="' + id + '"]');
+    if (link) link.click();
+  }
+  window.addEventListener('hashchange', openFromHash);
+  if (document.readyState !== 'loading') openFromHash();
+  else document.addEventListener('DOMContentLoaded', openFromHash);
+})();
+</script>
 </body>
 </html>
